@@ -8,13 +8,33 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface XGrammarListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link XGrammarParser#r}.
+	 * Enter a parse tree produced by {@link XGrammarParser#ap}.
 	 * @param ctx the parse tree
 	 */
-	void enterR(XGrammarParser.RContext ctx);
+	void enterAp(XGrammarParser.ApContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link XGrammarParser#r}.
+	 * Exit a parse tree produced by {@link XGrammarParser#ap}.
 	 * @param ctx the parse tree
 	 */
-	void exitR(XGrammarParser.RContext ctx);
+	void exitAp(XGrammarParser.ApContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link XGrammarParser#rp}.
+	 * @param ctx the parse tree
+	 */
+	void enterRp(XGrammarParser.RpContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link XGrammarParser#rp}.
+	 * @param ctx the parse tree
+	 */
+	void exitRp(XGrammarParser.RpContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link XGrammarParser#f}.
+	 * @param ctx the parse tree
+	 */
+	void enterF(XGrammarParser.FContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link XGrammarParser#f}.
+	 * @param ctx the parse tree
+	 */
+	void exitF(XGrammarParser.FContext ctx);
 }

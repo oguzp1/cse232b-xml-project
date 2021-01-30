@@ -11,9 +11,21 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface XGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link XGrammarParser#r}.
+	 * Visit a parse tree produced by {@link XGrammarParser#ap}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitR(XGrammarParser.RContext ctx);
+	T visitAp(XGrammarParser.ApContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link XGrammarParser#rp}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRp(XGrammarParser.RpContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link XGrammarParser#f}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitF(XGrammarParser.FContext ctx);
 }

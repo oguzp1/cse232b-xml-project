@@ -16,13 +16,37 @@ public class XGrammarBaseListener implements XGrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterR(XGrammarParser.RContext ctx) { }
+	@Override public void enterAp(XGrammarParser.ApContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitR(XGrammarParser.RContext ctx) { }
+	@Override public void exitAp(XGrammarParser.ApContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterRp(XGrammarParser.RpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRp(XGrammarParser.RpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterF(XGrammarParser.FContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitF(XGrammarParser.FContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
