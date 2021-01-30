@@ -2,26 +2,36 @@ grammar XGrammar;
 
 WS : [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines
 
-ap : 'doc(' '"'FILENAME'"' ')/' rp #AbsoluteImmediate
-| 'doc(' '"'FILENAME'"' ')//' rp #AbsoluteRecursive ;
+ap : 'doc(' '"'FILENAME'"' ')/' rp  #APDir
+   | 'doc(' '"'FILENAME'"' ')//' rp #APDirRecursive
+   ;
 
-rp : TAGNAME #ExpTagName
-| '*' #ExpStar
-| '.' #ExpDot
-| '..' #ExpDotDot
-| 'text()' #ExpText
-| '@'TAGNAME #ExpAttname
-| '(' rp ')' #ExpRPbrackets
-| rp '/' rp #ExpRPDir1
-| rp '//' rp #ExpRPDir2
-| rp '[' f ']' #ExpRPfilter
-| rp ',' rp  #ExpCat
-;
+rp : TAGNAME                        #RPTagName
+   | '*'                            #RPStar
+   | '.'                            #RPCurrentDir
+   | '..'                           #RPParentDir
+   | 'text()'                       #RPText
+   | '@'ATTRIBNAME                  #RPAttName
+   | '(' rp ')'                     #RPParantheses
+   | rp '/' rp                      #RPDir
+   | rp '//' rp                     #RPDirRecursive
+   | rp '[' f ']'                   #RPFilter
+   | rp ',' rp                      #RPConcat
+   ;
 
-f : rp | rp'='rp | rp 'eq' rp | rp '==' rp | rp 'is' rp | rp '=' STRINGCONSTANT
-| '(' f ')' |f 'and' f | f 'or' f| 'not' f;
+f  : rp                             #FRP
+   | rp '=' rp                      #FRPEqual
+   | rp 'eq' rp                     #FRPEqual
+   | rp '==' rp                     #FRPIdentical
+   | rp 'is' rp                     #FRPIdentical
+   | rp '=' STRINGCONSTANT          #FStringEqual
+   | '(' f ')'                      #FParantheses
+   | f 'and' f                      #FAnd
+   | f 'or' f                       #FOr
+   | 'not' f                        #FNot
+   ;
 
-FILENAME : [a-zA-Z0-9_\- ]+ '.' [a-zA-Z0-9_\- ]+ ;
-TAGNAME : [a-zA-Z_]+ ;
-//ATTNAME : [a-zA-Z_]+ ;
-STRINGCONSTANT : [a-z]+ ;
+FILENAME       : ([a-zA-Z0-9_\- ] | '.')+ ;
+TAGNAME        : [a-zA-Z_]+ ;
+ATTRIBNAME     : [a-zA-Z0-9_]+ ;
+STRINGCONSTANT : ["][ a-zA-Z0-9]*["] ;

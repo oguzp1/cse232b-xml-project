@@ -1,4 +1,4 @@
-// Generated from C:/Users/raagh/IdeaProjects/cse232b-xml-project/src/main/antlr\XGrammar.g4 by ANTLR 4.9.1
+// Generated from C:/Users/OGUZ/IdeaProjects/cse232b-xml-project/src/main/antlr\XGrammar.g4 by ANTLR 4.9.1
 package org.raaghavoguz.xmlproject.grammar;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -8,169 +8,255 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface XGrammarListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by the {@code AbsoluteImmediate}
+	 * Enter a parse tree produced by the {@code APDir}
 	 * labeled alternative in {@link XGrammarParser#ap}.
 	 * @param ctx the parse tree
 	 */
-	void enterAbsoluteImmediate(XGrammarParser.AbsoluteImmediateContext ctx);
+	void enterAPDir(XGrammarParser.APDirContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code AbsoluteImmediate}
+	 * Exit a parse tree produced by the {@code APDir}
 	 * labeled alternative in {@link XGrammarParser#ap}.
 	 * @param ctx the parse tree
 	 */
-	void exitAbsoluteImmediate(XGrammarParser.AbsoluteImmediateContext ctx);
+	void exitAPDir(XGrammarParser.APDirContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code AbsoluteRecursive}
+	 * Enter a parse tree produced by the {@code APDirRecursive}
 	 * labeled alternative in {@link XGrammarParser#ap}.
 	 * @param ctx the parse tree
 	 */
-	void enterAbsoluteRecursive(XGrammarParser.AbsoluteRecursiveContext ctx);
+	void enterAPDirRecursive(XGrammarParser.APDirRecursiveContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code AbsoluteRecursive}
+	 * Exit a parse tree produced by the {@code APDirRecursive}
 	 * labeled alternative in {@link XGrammarParser#ap}.
 	 * @param ctx the parse tree
 	 */
-	void exitAbsoluteRecursive(XGrammarParser.AbsoluteRecursiveContext ctx);
+	void exitAPDirRecursive(XGrammarParser.APDirRecursiveContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code ExpDot}
+	 * Enter a parse tree produced by the {@code RPCurrentDir}
 	 * labeled alternative in {@link XGrammarParser#rp}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpDot(XGrammarParser.ExpDotContext ctx);
+	void enterRPCurrentDir(XGrammarParser.RPCurrentDirContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code ExpDot}
+	 * Exit a parse tree produced by the {@code RPCurrentDir}
 	 * labeled alternative in {@link XGrammarParser#rp}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpDot(XGrammarParser.ExpDotContext ctx);
+	void exitRPCurrentDir(XGrammarParser.RPCurrentDirContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code ExpRPDir1}
+	 * Enter a parse tree produced by the {@code RPConcat}
 	 * labeled alternative in {@link XGrammarParser#rp}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpRPDir1(XGrammarParser.ExpRPDir1Context ctx);
+	void enterRPConcat(XGrammarParser.RPConcatContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code ExpRPDir1}
+	 * Exit a parse tree produced by the {@code RPConcat}
 	 * labeled alternative in {@link XGrammarParser#rp}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpRPDir1(XGrammarParser.ExpRPDir1Context ctx);
+	void exitRPConcat(XGrammarParser.RPConcatContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code ExpRPbrackets}
+	 * Enter a parse tree produced by the {@code RPAttName}
 	 * labeled alternative in {@link XGrammarParser#rp}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpRPbrackets(XGrammarParser.ExpRPbracketsContext ctx);
+	void enterRPAttName(XGrammarParser.RPAttNameContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code ExpRPbrackets}
+	 * Exit a parse tree produced by the {@code RPAttName}
 	 * labeled alternative in {@link XGrammarParser#rp}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpRPbrackets(XGrammarParser.ExpRPbracketsContext ctx);
+	void exitRPAttName(XGrammarParser.RPAttNameContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code ExpCat}
+	 * Enter a parse tree produced by the {@code RPFilter}
 	 * labeled alternative in {@link XGrammarParser#rp}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpCat(XGrammarParser.ExpCatContext ctx);
+	void enterRPFilter(XGrammarParser.RPFilterContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code ExpCat}
+	 * Exit a parse tree produced by the {@code RPFilter}
 	 * labeled alternative in {@link XGrammarParser#rp}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpCat(XGrammarParser.ExpCatContext ctx);
+	void exitRPFilter(XGrammarParser.RPFilterContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code ExpDotDot}
+	 * Enter a parse tree produced by the {@code RPText}
 	 * labeled alternative in {@link XGrammarParser#rp}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpDotDot(XGrammarParser.ExpDotDotContext ctx);
+	void enterRPText(XGrammarParser.RPTextContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code ExpDotDot}
+	 * Exit a parse tree produced by the {@code RPText}
 	 * labeled alternative in {@link XGrammarParser#rp}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpDotDot(XGrammarParser.ExpDotDotContext ctx);
+	void exitRPText(XGrammarParser.RPTextContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code ExpStar}
+	 * Enter a parse tree produced by the {@code RPDir}
 	 * labeled alternative in {@link XGrammarParser#rp}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpStar(XGrammarParser.ExpStarContext ctx);
+	void enterRPDir(XGrammarParser.RPDirContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code ExpStar}
+	 * Exit a parse tree produced by the {@code RPDir}
 	 * labeled alternative in {@link XGrammarParser#rp}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpStar(XGrammarParser.ExpStarContext ctx);
+	void exitRPDir(XGrammarParser.RPDirContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code ExpTagName}
+	 * Enter a parse tree produced by the {@code RPParentDir}
 	 * labeled alternative in {@link XGrammarParser#rp}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpTagName(XGrammarParser.ExpTagNameContext ctx);
+	void enterRPParentDir(XGrammarParser.RPParentDirContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code ExpTagName}
+	 * Exit a parse tree produced by the {@code RPParentDir}
 	 * labeled alternative in {@link XGrammarParser#rp}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpTagName(XGrammarParser.ExpTagNameContext ctx);
+	void exitRPParentDir(XGrammarParser.RPParentDirContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code ExpRPDir2}
+	 * Enter a parse tree produced by the {@code RPParantheses}
 	 * labeled alternative in {@link XGrammarParser#rp}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpRPDir2(XGrammarParser.ExpRPDir2Context ctx);
+	void enterRPParantheses(XGrammarParser.RPParanthesesContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code ExpRPDir2}
+	 * Exit a parse tree produced by the {@code RPParantheses}
 	 * labeled alternative in {@link XGrammarParser#rp}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpRPDir2(XGrammarParser.ExpRPDir2Context ctx);
+	void exitRPParantheses(XGrammarParser.RPParanthesesContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code ExpRPfilter}
+	 * Enter a parse tree produced by the {@code RPTagName}
 	 * labeled alternative in {@link XGrammarParser#rp}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpRPfilter(XGrammarParser.ExpRPfilterContext ctx);
+	void enterRPTagName(XGrammarParser.RPTagNameContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code ExpRPfilter}
+	 * Exit a parse tree produced by the {@code RPTagName}
 	 * labeled alternative in {@link XGrammarParser#rp}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpRPfilter(XGrammarParser.ExpRPfilterContext ctx);
+	void exitRPTagName(XGrammarParser.RPTagNameContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code ExpText}
+	 * Enter a parse tree produced by the {@code RPStar}
 	 * labeled alternative in {@link XGrammarParser#rp}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpText(XGrammarParser.ExpTextContext ctx);
+	void enterRPStar(XGrammarParser.RPStarContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code ExpText}
+	 * Exit a parse tree produced by the {@code RPStar}
 	 * labeled alternative in {@link XGrammarParser#rp}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpText(XGrammarParser.ExpTextContext ctx);
+	void exitRPStar(XGrammarParser.RPStarContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code ExpAttname}
+	 * Enter a parse tree produced by the {@code RPDirRecursive}
 	 * labeled alternative in {@link XGrammarParser#rp}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpAttname(XGrammarParser.ExpAttnameContext ctx);
+	void enterRPDirRecursive(XGrammarParser.RPDirRecursiveContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code ExpAttname}
+	 * Exit a parse tree produced by the {@code RPDirRecursive}
 	 * labeled alternative in {@link XGrammarParser#rp}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpAttname(XGrammarParser.ExpAttnameContext ctx);
+	void exitRPDirRecursive(XGrammarParser.RPDirRecursiveContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link XGrammarParser#f}.
+	 * Enter a parse tree produced by the {@code FAnd}
+	 * labeled alternative in {@link XGrammarParser#f}.
 	 * @param ctx the parse tree
 	 */
-	void enterF(XGrammarParser.FContext ctx);
+	void enterFAnd(XGrammarParser.FAndContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link XGrammarParser#f}.
+	 * Exit a parse tree produced by the {@code FAnd}
+	 * labeled alternative in {@link XGrammarParser#f}.
 	 * @param ctx the parse tree
 	 */
-	void exitF(XGrammarParser.FContext ctx);
+	void exitFAnd(XGrammarParser.FAndContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code FRP}
+	 * labeled alternative in {@link XGrammarParser#f}.
+	 * @param ctx the parse tree
+	 */
+	void enterFRP(XGrammarParser.FRPContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code FRP}
+	 * labeled alternative in {@link XGrammarParser#f}.
+	 * @param ctx the parse tree
+	 */
+	void exitFRP(XGrammarParser.FRPContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code FRPEqual}
+	 * labeled alternative in {@link XGrammarParser#f}.
+	 * @param ctx the parse tree
+	 */
+	void enterFRPEqual(XGrammarParser.FRPEqualContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code FRPEqual}
+	 * labeled alternative in {@link XGrammarParser#f}.
+	 * @param ctx the parse tree
+	 */
+	void exitFRPEqual(XGrammarParser.FRPEqualContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code FOr}
+	 * labeled alternative in {@link XGrammarParser#f}.
+	 * @param ctx the parse tree
+	 */
+	void enterFOr(XGrammarParser.FOrContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code FOr}
+	 * labeled alternative in {@link XGrammarParser#f}.
+	 * @param ctx the parse tree
+	 */
+	void exitFOr(XGrammarParser.FOrContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code FStringEqual}
+	 * labeled alternative in {@link XGrammarParser#f}.
+	 * @param ctx the parse tree
+	 */
+	void enterFStringEqual(XGrammarParser.FStringEqualContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code FStringEqual}
+	 * labeled alternative in {@link XGrammarParser#f}.
+	 * @param ctx the parse tree
+	 */
+	void exitFStringEqual(XGrammarParser.FStringEqualContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code FParantheses}
+	 * labeled alternative in {@link XGrammarParser#f}.
+	 * @param ctx the parse tree
+	 */
+	void enterFParantheses(XGrammarParser.FParanthesesContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code FParantheses}
+	 * labeled alternative in {@link XGrammarParser#f}.
+	 * @param ctx the parse tree
+	 */
+	void exitFParantheses(XGrammarParser.FParanthesesContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code FNot}
+	 * labeled alternative in {@link XGrammarParser#f}.
+	 * @param ctx the parse tree
+	 */
+	void enterFNot(XGrammarParser.FNotContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code FNot}
+	 * labeled alternative in {@link XGrammarParser#f}.
+	 * @param ctx the parse tree
+	 */
+	void exitFNot(XGrammarParser.FNotContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code FRPIdentical}
+	 * labeled alternative in {@link XGrammarParser#f}.
+	 * @param ctx the parse tree
+	 */
+	void enterFRPIdentical(XGrammarParser.FRPIdenticalContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code FRPIdentical}
+	 * labeled alternative in {@link XGrammarParser#f}.
+	 * @param ctx the parse tree
+	 */
+	void exitFRPIdentical(XGrammarParser.FRPIdenticalContext ctx);
 }

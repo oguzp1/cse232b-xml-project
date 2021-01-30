@@ -1,4 +1,4 @@
-// Generated from C:/Users/raagh/IdeaProjects/cse232b-xml-project/src/main/antlr\XGrammar.g4 by ANTLR 4.9.1
+// Generated from C:/Users/OGUZ/IdeaProjects/cse232b-xml-project/src/main/antlr\XGrammar.g4 by ANTLR 4.9.1
 package org.raaghavoguz.xmlproject.grammar;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -11,100 +11,150 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface XGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by the {@code AbsoluteImmediate}
+	 * Visit a parse tree produced by the {@code APDir}
 	 * labeled alternative in {@link XGrammarParser#ap}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAbsoluteImmediate(XGrammarParser.AbsoluteImmediateContext ctx);
+	T visitAPDir(XGrammarParser.APDirContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code AbsoluteRecursive}
+	 * Visit a parse tree produced by the {@code APDirRecursive}
 	 * labeled alternative in {@link XGrammarParser#ap}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAbsoluteRecursive(XGrammarParser.AbsoluteRecursiveContext ctx);
+	T visitAPDirRecursive(XGrammarParser.APDirRecursiveContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ExpDot}
+	 * Visit a parse tree produced by the {@code RPCurrentDir}
 	 * labeled alternative in {@link XGrammarParser#rp}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpDot(XGrammarParser.ExpDotContext ctx);
+	T visitRPCurrentDir(XGrammarParser.RPCurrentDirContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ExpRPDir1}
+	 * Visit a parse tree produced by the {@code RPConcat}
 	 * labeled alternative in {@link XGrammarParser#rp}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpRPDir1(XGrammarParser.ExpRPDir1Context ctx);
+	T visitRPConcat(XGrammarParser.RPConcatContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ExpRPbrackets}
+	 * Visit a parse tree produced by the {@code RPAttName}
 	 * labeled alternative in {@link XGrammarParser#rp}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpRPbrackets(XGrammarParser.ExpRPbracketsContext ctx);
+	T visitRPAttName(XGrammarParser.RPAttNameContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ExpCat}
+	 * Visit a parse tree produced by the {@code RPFilter}
 	 * labeled alternative in {@link XGrammarParser#rp}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpCat(XGrammarParser.ExpCatContext ctx);
+	T visitRPFilter(XGrammarParser.RPFilterContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ExpDotDot}
+	 * Visit a parse tree produced by the {@code RPText}
 	 * labeled alternative in {@link XGrammarParser#rp}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpDotDot(XGrammarParser.ExpDotDotContext ctx);
+	T visitRPText(XGrammarParser.RPTextContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ExpStar}
+	 * Visit a parse tree produced by the {@code RPDir}
 	 * labeled alternative in {@link XGrammarParser#rp}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpStar(XGrammarParser.ExpStarContext ctx);
+	T visitRPDir(XGrammarParser.RPDirContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ExpTagName}
+	 * Visit a parse tree produced by the {@code RPParentDir}
 	 * labeled alternative in {@link XGrammarParser#rp}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpTagName(XGrammarParser.ExpTagNameContext ctx);
+	T visitRPParentDir(XGrammarParser.RPParentDirContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ExpRPDir2}
+	 * Visit a parse tree produced by the {@code RPParantheses}
 	 * labeled alternative in {@link XGrammarParser#rp}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpRPDir2(XGrammarParser.ExpRPDir2Context ctx);
+	T visitRPParantheses(XGrammarParser.RPParanthesesContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ExpRPfilter}
+	 * Visit a parse tree produced by the {@code RPTagName}
 	 * labeled alternative in {@link XGrammarParser#rp}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpRPfilter(XGrammarParser.ExpRPfilterContext ctx);
+	T visitRPTagName(XGrammarParser.RPTagNameContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ExpText}
+	 * Visit a parse tree produced by the {@code RPStar}
 	 * labeled alternative in {@link XGrammarParser#rp}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpText(XGrammarParser.ExpTextContext ctx);
+	T visitRPStar(XGrammarParser.RPStarContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ExpAttname}
+	 * Visit a parse tree produced by the {@code RPDirRecursive}
 	 * labeled alternative in {@link XGrammarParser#rp}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpAttname(XGrammarParser.ExpAttnameContext ctx);
+	T visitRPDirRecursive(XGrammarParser.RPDirRecursiveContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link XGrammarParser#f}.
+	 * Visit a parse tree produced by the {@code FAnd}
+	 * labeled alternative in {@link XGrammarParser#f}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitF(XGrammarParser.FContext ctx);
+	T visitFAnd(XGrammarParser.FAndContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code FRP}
+	 * labeled alternative in {@link XGrammarParser#f}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFRP(XGrammarParser.FRPContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code FRPEqual}
+	 * labeled alternative in {@link XGrammarParser#f}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFRPEqual(XGrammarParser.FRPEqualContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code FOr}
+	 * labeled alternative in {@link XGrammarParser#f}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFOr(XGrammarParser.FOrContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code FStringEqual}
+	 * labeled alternative in {@link XGrammarParser#f}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFStringEqual(XGrammarParser.FStringEqualContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code FParantheses}
+	 * labeled alternative in {@link XGrammarParser#f}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFParantheses(XGrammarParser.FParanthesesContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code FNot}
+	 * labeled alternative in {@link XGrammarParser#f}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFNot(XGrammarParser.FNotContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code FRPIdentical}
+	 * labeled alternative in {@link XGrammarParser#f}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFRPIdentical(XGrammarParser.FRPIdenticalContext ctx);
 }

@@ -1,4 +1,4 @@
-// Generated from C:/Users/raagh/IdeaProjects/cse232b-xml-project/src/main/antlr\XGrammar.g4 by ANTLR 4.9.1
+// Generated from C:/Users/OGUZ/IdeaProjects/cse232b-xml-project/src/main/antlr\XGrammar.g4 by ANTLR 4.9.1
 package org.raaghavoguz.xmlproject.grammar;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -16,169 +16,253 @@ public class XGrammarBaseListener implements XGrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAbsoluteImmediate(XGrammarParser.AbsoluteImmediateContext ctx) { }
+	@Override public void enterAPDir(XGrammarParser.APDirContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAbsoluteImmediate(XGrammarParser.AbsoluteImmediateContext ctx) { }
+	@Override public void exitAPDir(XGrammarParser.APDirContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAbsoluteRecursive(XGrammarParser.AbsoluteRecursiveContext ctx) { }
+	@Override public void enterAPDirRecursive(XGrammarParser.APDirRecursiveContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAbsoluteRecursive(XGrammarParser.AbsoluteRecursiveContext ctx) { }
+	@Override public void exitAPDirRecursive(XGrammarParser.APDirRecursiveContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExpDot(XGrammarParser.ExpDotContext ctx) { }
+	@Override public void enterRPCurrentDir(XGrammarParser.RPCurrentDirContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExpDot(XGrammarParser.ExpDotContext ctx) { }
+	@Override public void exitRPCurrentDir(XGrammarParser.RPCurrentDirContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExpRPDir1(XGrammarParser.ExpRPDir1Context ctx) { }
+	@Override public void enterRPConcat(XGrammarParser.RPConcatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExpRPDir1(XGrammarParser.ExpRPDir1Context ctx) { }
+	@Override public void exitRPConcat(XGrammarParser.RPConcatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExpRPbrackets(XGrammarParser.ExpRPbracketsContext ctx) { }
+	@Override public void enterRPAttName(XGrammarParser.RPAttNameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExpRPbrackets(XGrammarParser.ExpRPbracketsContext ctx) { }
+	@Override public void exitRPAttName(XGrammarParser.RPAttNameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExpCat(XGrammarParser.ExpCatContext ctx) { }
+	@Override public void enterRPFilter(XGrammarParser.RPFilterContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExpCat(XGrammarParser.ExpCatContext ctx) { }
+	@Override public void exitRPFilter(XGrammarParser.RPFilterContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExpDotDot(XGrammarParser.ExpDotDotContext ctx) { }
+	@Override public void enterRPText(XGrammarParser.RPTextContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExpDotDot(XGrammarParser.ExpDotDotContext ctx) { }
+	@Override public void exitRPText(XGrammarParser.RPTextContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExpStar(XGrammarParser.ExpStarContext ctx) { }
+	@Override public void enterRPDir(XGrammarParser.RPDirContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExpStar(XGrammarParser.ExpStarContext ctx) { }
+	@Override public void exitRPDir(XGrammarParser.RPDirContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExpTagName(XGrammarParser.ExpTagNameContext ctx) { }
+	@Override public void enterRPParentDir(XGrammarParser.RPParentDirContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExpTagName(XGrammarParser.ExpTagNameContext ctx) { }
+	@Override public void exitRPParentDir(XGrammarParser.RPParentDirContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExpRPDir2(XGrammarParser.ExpRPDir2Context ctx) { }
+	@Override public void enterRPParantheses(XGrammarParser.RPParanthesesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExpRPDir2(XGrammarParser.ExpRPDir2Context ctx) { }
+	@Override public void exitRPParantheses(XGrammarParser.RPParanthesesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExpRPfilter(XGrammarParser.ExpRPfilterContext ctx) { }
+	@Override public void enterRPTagName(XGrammarParser.RPTagNameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExpRPfilter(XGrammarParser.ExpRPfilterContext ctx) { }
+	@Override public void exitRPTagName(XGrammarParser.RPTagNameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExpText(XGrammarParser.ExpTextContext ctx) { }
+	@Override public void enterRPStar(XGrammarParser.RPStarContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExpText(XGrammarParser.ExpTextContext ctx) { }
+	@Override public void exitRPStar(XGrammarParser.RPStarContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExpAttname(XGrammarParser.ExpAttnameContext ctx) { }
+	@Override public void enterRPDirRecursive(XGrammarParser.RPDirRecursiveContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExpAttname(XGrammarParser.ExpAttnameContext ctx) { }
+	@Override public void exitRPDirRecursive(XGrammarParser.RPDirRecursiveContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterF(XGrammarParser.FContext ctx) { }
+	@Override public void enterFAnd(XGrammarParser.FAndContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitF(XGrammarParser.FContext ctx) { }
+	@Override public void exitFAnd(XGrammarParser.FAndContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFRP(XGrammarParser.FRPContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFRP(XGrammarParser.FRPContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFRPEqual(XGrammarParser.FRPEqualContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFRPEqual(XGrammarParser.FRPEqualContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFOr(XGrammarParser.FOrContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFOr(XGrammarParser.FOrContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFStringEqual(XGrammarParser.FStringEqualContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFStringEqual(XGrammarParser.FStringEqualContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFParantheses(XGrammarParser.FParanthesesContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFParantheses(XGrammarParser.FParanthesesContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFNot(XGrammarParser.FNotContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFNot(XGrammarParser.FNotContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFRPIdentical(XGrammarParser.FRPIdenticalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFRPIdentical(XGrammarParser.FRPIdenticalContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
