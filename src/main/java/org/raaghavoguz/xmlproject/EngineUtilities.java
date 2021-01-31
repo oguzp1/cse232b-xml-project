@@ -24,6 +24,19 @@ import java.util.stream.IntStream;
 public class EngineUtilities {
     private EngineUtilities() { }
 
+    public static boolean isTerminal(Node node) {
+        short nodeType = node.getNodeType();
+        return (nodeType == Node.TEXT_NODE ||
+                nodeType == Node.ATTRIBUTE_NODE ||
+                nodeType == Node.CDATA_SECTION_NODE ||
+                nodeType == Node.COMMENT_NODE ||
+                nodeType == Node.NOTATION_NODE);
+    }
+
+    public static boolean isNonTerminal(Node node) {
+        return !isTerminal(node);
+    }
+
     public static Element root(String fileName) throws ParserConfigurationException, SAXException, IOException {
         File inputFile = new File(fileName);
 
@@ -44,6 +57,19 @@ public class EngineUtilities {
                 .collect(Collectors.toList());
     }
 
+    public static List<Node> descendants(Node node) {
+        List<Node> descList = new ArrayList<>();
+        descList.add(node);
+
+        if (isNonTerminal(node)) {
+            children(node).stream()
+                    .map(EngineUtilities::descendants)
+                    .forEach(descList::addAll);
+        }
+
+        return descList;
+    }
+
     public static List<Node> parent(Node node) {
         List<Node> parentList = new ArrayList<>();
         Optional.ofNullable(node.getParentNode())
@@ -59,29 +85,33 @@ public class EngineUtilities {
         return node.getNodeValue();
     }
 
-    public static List<?> unique(List<?> list) {
+    public static List<Node> unique(List<Node> list) {
         return new ArrayList<>(new LinkedHashSet<>(list));
     }
 
     public static List<Node> attrib(Node node, String attName) {
         List<Node> attList = new ArrayList<>();
-        Optional.ofNullable(node.getAttributes())
-                .flatMap(attribs -> Optional.ofNullable(attribs.getNamedItem(attName)))
-                .ifPresent(attList::add);
+
+        if (isNonTerminal(node)) {
+            Optional.ofNullable(node.getAttributes())
+                    .flatMap(attribs -> Optional.ofNullable(attribs.getNamedItem(attName)))
+                    .ifPresent(attList::add);
+        }
+
         return attList;
     }
 
-    public static boolean is(List<?> list1, List<?> list2) {
-        for (Object o1 : list1) {
-            for (Object o2 : list2) {
-                if (o1 == o2)
+    public static boolean is(List<Node> list1, List<Node> list2) {
+        for (Node n1 : list1) {
+            for (Node n2 : list2) {
+                if (n1 == n2)
                     return true;
             }
         }
         return false;
     }
 
-    public static boolean eq(List<? extends Node> list1, List<? extends Node> list2) {
+    public static boolean eq(List<Node> list1, List<Node> list2) {
         for (Node n1 : list1) {
             for (Node n2 : list2) {
                 if (!tag(n1).equals(tag(n2)))
@@ -103,9 +133,9 @@ public class EngineUtilities {
         return false;
     }
 
-    public static boolean eq(List<?> list, String str) {
-        for (Object o : list) {
-            if (o.equals(str))
+    public static boolean eq(List<Node> list, String str) {
+        for (Node n : list) {
+            if (text(n).equals(str))
                 return true;
         }
         return false;

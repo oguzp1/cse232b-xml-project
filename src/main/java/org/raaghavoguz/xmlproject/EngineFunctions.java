@@ -1,7 +1,8 @@
 package org.raaghavoguz.xmlproject;
 
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.Trees;
 import org.raaghavoguz.xmlproject.grammar.XGrammarParser;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -9,47 +10,47 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class EngineFunctions {
     private EngineFunctions() { }
 
-    private static List<?> relativeDir(ParseTree rp1, ParseTree rp2, Node node) {
+    private static List<Node> relativeDir(ParseTree rp1, ParseTree rp2, Node node) {
         return EngineUtilities.unique(
                 relativePath(rp1, node).stream()
-                        .filter(n -> n instanceof Node)
-                        .flatMap(n -> relativePath(rp2, (Node) n).stream())
+                        .filter(EngineUtilities::isNonTerminal)
+                        .flatMap(n -> relativePath(rp2, n).stream())
                         .collect(Collectors.toList())
         );
     }
 
-    private static List<?> relativeDirRecursive(ParseTree rp1, ParseTree rp2, Node node) {
+    private static List<Node> relativeDirRecursive(ParseTree rp1, ParseTree rp2, Node node) {
         return EngineUtilities.unique(
-                Trees.getDescendants(rp1).stream()
-                        .filter(n -> n instanceof Node)
-                        .flatMap(d -> relativeDir(d, rp2, node).stream())
+                relativePath(rp1, node).stream()
+                        .flatMap(n -> EngineUtilities.descendants(n).stream())
+                        .filter(EngineUtilities::isNonTerminal)
+                        .flatMap(d -> relativePath(rp2, d).stream())
                         .collect(Collectors.toList())
         );
     }
 
-    private static List<?> relativeConcatenate(Node node, ParseTree... parseTrees) {
+    private static List<Node> relativeConcatenate(Node node, ParseTree... parseTrees) {
         return Arrays.stream(parseTrees)
-                .flatMap(pt -> Stream.of(relativePath(pt, node)))
+                .flatMap(pt -> relativePath(pt, node).stream())
                 .collect(Collectors.toList());
     }
 
-    private static List<?> relativeFilter(ParseTree rp1, ParseTree f, Node node) {
+    private static List<Node> relativeFilter(ParseTree rp1, ParseTree f, Node node) {
         return relativePath(rp1, node).stream()
-                .filter(n -> filter(f, (Node) n))
+                .filter(n -> filter(f, n))
                 .collect(Collectors.toList());
     }
 
-    public static List<?> absolutePath(ParseTree tree) throws ParserConfigurationException,
+    public static List<Node> absolutePath(ParseTree tree) throws ParserConfigurationException,
             SAXException, IOException {
-
-        // System.out.println(tree.getClass().getCanonicalName());
 
         Element root = EngineUtilities.root(tree.getChild(2).getText());
         ParseTree rp = tree.getChild(5);
@@ -57,48 +58,38 @@ public class EngineFunctions {
         if (tree instanceof XGrammarParser.APDirContext) {
             return relativePath(rp, root);
         } else if (tree instanceof XGrammarParser.APDirRecursiveContext) {
-            Queue<Node> domQueue = new LinkedList<>();
-            domQueue.add(root);
+            CharStream cs = CharStreams.fromString(".");
+            XGrammarParser parser = EngineUtilities.parseCharStream(cs);
+            ParseTree dot = parser.rp();
 
-            List<Node> nodeList = new ArrayList<>();
-
-            while (!domQueue.isEmpty()) {
-                Node n = domQueue.remove();
-
-                domQueue.addAll(EngineUtilities.children(n));
-
-                //if (n instanceof XGrammarParser.RpContext) {
-                    nodeList.addAll((List<Node>) relativePath(rp, n));
-                //}
-            }
-
-            return nodeList;
-            //return relativeDirRecursive(rp.getParent(), rp, root);
+            return relativeDirRecursive(dot, rp, root);
         } else {
             throw new IllegalArgumentException("Absolute Path could not be parsed.");
         }
     }
 
-    public static List<?> relativePath(ParseTree tree, Node node) {
-        // System.out.println(tree.getClass().getCanonicalName());
+    public static List<Node> relativePath(ParseTree tree, Node node) {
         if (tree instanceof XGrammarParser.RPTagNameContext) {
             String tagName = tree.getChild(0).getText();
             return EngineUtilities.children(node).stream()
+                    .filter(EngineUtilities::isNonTerminal)
                     .filter(n -> tagName.equals(n.getNodeName()))
                     .collect(Collectors.toList());
         } else if (tree instanceof XGrammarParser.RPStarContext) {
-            return EngineUtilities.children(node);
+            return EngineUtilities.children(node).stream()
+                    .filter(EngineUtilities::isNonTerminal)
+                    .collect(Collectors.toList());
         } else if (tree instanceof XGrammarParser.RPCurrentDirContext) {
             return Collections.singletonList(node);
         } else if (tree instanceof XGrammarParser.RPParentDirContext) {
             return EngineUtilities.parent(node);
         } else if (tree instanceof XGrammarParser.RPTextContext) {
-            List<String> elementList = new ArrayList<>();
-            elementList.add(node.getTextContent());
-            return elementList;
+            return EngineUtilities.children(node).stream()
+                    .filter(n -> n.getNodeType() == Node.TEXT_NODE)
+                    .collect(Collectors.toList());
         } else if (tree instanceof XGrammarParser.RPAttNameContext) {
-            ParseTree attribute = tree.getChild(1);
-            return EngineUtilities.attrib(node, attribute.toString());
+            String attName = tree.getChild(1).toString();
+            return EngineUtilities.attrib(node, attName);
         } else if (tree instanceof XGrammarParser.RPParanthesesContext) {
             return relativePath(tree.getChild(1), node);
         } else if (tree instanceof XGrammarParser.RPDirContext) {
@@ -108,21 +99,7 @@ public class EngineFunctions {
         }  else if (tree instanceof XGrammarParser.RPDirRecursiveContext) {
             ParseTree rp1 = tree.getChild(0);
             ParseTree rp2 = tree.getChild(2);
-            Queue<Node> domQueue = new LinkedList<>();
-            domQueue.add(node);
-
-            List<Node> nodeList = new ArrayList<>();
-            nodeList.addAll((List<Node>) relativeDir(rp1, rp2, node));
-
-            while (!domQueue.isEmpty()) {
-                Node n = domQueue.remove();
-
-                domQueue.addAll(EngineUtilities.children(n));
-
-                nodeList.addAll((List<Node>) relativePath(rp2, n));
-            }
-
-            return nodeList;
+            return relativeDirRecursive(rp1, rp2, node);
         } else if (tree instanceof XGrammarParser.RPFilterContext) {
             ParseTree rp1 = tree.getChild(0);
             ParseTree f = tree.getChild(2);
@@ -137,22 +114,20 @@ public class EngineFunctions {
     }
 
     public static boolean filter(ParseTree tree, Node node) {
-        // System.out.println(tree.getClass().getCanonicalName());
         if (tree instanceof XGrammarParser.FRPContext) {
             return !relativePath(tree.getChild(0), node).isEmpty();
         } else if (tree instanceof XGrammarParser.FRPEqualContext) {
             ParseTree rp1 = tree.getChild(0);
             ParseTree rp2 = tree.getChild(2);
-            return EngineUtilities.eq((List<Node>) relativePath(rp1, node),
-                    (List<Node>) relativePath(rp2, node));
+            return EngineUtilities.eq(relativePath(rp1, node), relativePath(rp2, node));
         } else if (tree instanceof XGrammarParser.FRPIdenticalContext) {
             ParseTree rp1 = tree.getChild(0);
             ParseTree rp2 = tree.getChild(2);
             return EngineUtilities.is(relativePath(rp1, node), relativePath(rp2, node));
         } else if (tree instanceof XGrammarParser.FStringEqualContext) {
-            ParseTree rp1 = tree.getChild(0);
-            ParseTree rp2 = tree.getChild(2);
-            return EngineUtilities.eq(relativePath(rp1, node), rp2.getText().replaceAll("\"", ""));
+            ParseTree rp = tree.getChild(0);
+            String stringConstant = tree.getChild(2).getText().replaceAll("\"", "");
+            return EngineUtilities.eq(relativePath(rp, node), stringConstant);
         } else if (tree instanceof XGrammarParser.FParanthesesContext) {
             return filter(tree.getChild(1), node);
         } else if (tree instanceof XGrammarParser.FAndContext) {
