@@ -5,8 +5,14 @@ import org.antlr.v4.runtime.CharStreams;
 import org.raaghavoguz.xmlproject.grammar.XGrammarParser;
 import org.w3c.dom.Node;
 
+import javax.xml.transform.Result;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -20,17 +26,20 @@ public class Main {
                 //System.out.println(tree.getChild(0));
                 // System.out.println(doc.getDocumentElement().getAttribute("color"));
                 // System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
-                System.out.print("ans=");
-                System.out.println(EngineFunctions.absolutePath(parser.ap())
-                        .stream()
-                        .map(r -> {
-                            if (r instanceof Node) {
-                                return ((Node) r).getTextContent();
-                            } else {
-                                return r;
-                            }
-                        })
-                        .collect(Collectors.toList()));
+                Transformer transformer = TransformerFactory.newInstance()
+                        .newTransformer();
+                System.out.println("Query: " + line);
+                List<?> resultList = EngineFunctions.absolutePath(parser.ap());
+                for (Object o : resultList) {
+                    if (o instanceof Node) {
+                        DOMSource source = new DOMSource((Node) o);
+                        StreamResult result = new StreamResult(System.out);
+                        transformer.transform(source, result);
+                    } else {
+                        System.out.println(o);
+                    }
+                }
+                System.out.println("\n");
             }
         } catch (Exception e){
             e.printStackTrace();
