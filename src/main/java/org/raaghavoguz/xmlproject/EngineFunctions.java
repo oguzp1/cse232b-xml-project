@@ -139,7 +139,7 @@ public class EngineFunctions {
     public static boolean filter(ParseTree tree, Node node) {
         // System.out.println(tree.getClass().getCanonicalName());
         if (tree instanceof XGrammarParser.FRPContext) {
-            return !relativePath(tree, node).isEmpty();
+            return !relativePath(tree.getChild(0), node).isEmpty();
         } else if (tree instanceof XGrammarParser.FRPEqualContext) {
             ParseTree rp1 = tree.getChild(0);
             ParseTree rp2 = tree.getChild(2);
@@ -152,7 +152,7 @@ public class EngineFunctions {
         } else if (tree instanceof XGrammarParser.FStringEqualContext) {
             ParseTree rp1 = tree.getChild(0);
             ParseTree rp2 = tree.getChild(2);
-            return EngineUtilities.eq(relativePath(rp1, node), rp2.getText());
+            return EngineUtilities.eq(relativePath(rp1, node), rp2.getText().replaceAll("\"", ""));
         } else if (tree instanceof XGrammarParser.FParanthesesContext) {
             return filter(tree.getChild(1), node);
         } else if (tree instanceof XGrammarParser.FAndContext) {
