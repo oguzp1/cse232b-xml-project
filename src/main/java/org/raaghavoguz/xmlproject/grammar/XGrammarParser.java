@@ -19,8 +19,8 @@ public class XGrammarParser extends Parser {
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
 		T__9=10, T__10=11, T__11=12, T__12=13, T__13=14, T__14=15, T__15=16, T__16=17, 
-		T__17=18, T__18=19, T__19=20, T__20=21, T__21=22, T__22=23, WS=24, FILENAME=25, 
-		TAGNAME=26, ATTRIBNAME=27, STRINGCONSTANT=28;
+		T__17=18, T__18=19, T__19=20, T__20=21, T__21=22, T__22=23, WS=24, NAME=25, 
+		FILENAME=26, STRINGCONSTANT=27;
 	public static final int
 		RULE_ap = 0, RULE_rp = 1, RULE_f = 2;
 	private static String[] makeRuleNames() {
@@ -42,7 +42,7 @@ public class XGrammarParser extends Parser {
 		return new String[] {
 			null, null, null, null, null, null, null, null, null, null, null, null, 
 			null, null, null, null, null, null, null, null, null, null, null, null, 
-			"WS", "FILENAME", "TAGNAME", "ATTRIBNAME", "STRINGCONSTANT"
+			"WS", "NAME", "FILENAME", "STRINGCONSTANT"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -254,7 +254,7 @@ public class XGrammarParser extends Parser {
 		}
 	}
 	public static class RPAttNameContext extends RpContext {
-		public TerminalNode ATTRIBNAME() { return getToken(XGrammarParser.ATTRIBNAME, 0); }
+		public TerminalNode NAME() { return getToken(XGrammarParser.NAME, 0); }
 		public RPAttNameContext(RpContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -366,7 +366,7 @@ public class XGrammarParser extends Parser {
 		}
 	}
 	public static class RPTagNameContext extends RpContext {
-		public TerminalNode TAGNAME() { return getToken(XGrammarParser.TAGNAME, 0); }
+		public TerminalNode NAME() { return getToken(XGrammarParser.NAME, 0); }
 		public RPTagNameContext(RpContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -439,14 +439,14 @@ public class XGrammarParser extends Parser {
 			setState(32);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case TAGNAME:
+			case NAME:
 				{
 				_localctx = new RPTagNameContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 
 				setState(21);
-				match(TAGNAME);
+				match(NAME);
 				}
 				break;
 			case T__4:
@@ -493,7 +493,7 @@ public class XGrammarParser extends Parser {
 				setState(26);
 				match(T__8);
 				setState(27);
-				match(ATTRIBNAME);
+				match(NAME);
 				}
 				break;
 			case T__9:
@@ -978,18 +978,18 @@ public class XGrammarParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\36a\4\2\t\2\4\3\t"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\35a\4\2\t\2\4\3\t"+
 		"\3\4\4\t\4\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\5\2\25\n\2"+
 		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3#\n\3\3\3\3\3\3\3"+
 		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\7\3\63\n\3\f\3\16\3\66\13"+
 		"\3\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4"+
 		"\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\5\4T\n\4\3\4\3\4\3\4\3\4"+
 		"\3\4\3\4\7\4\\\n\4\f\4\16\4_\13\4\3\4\2\4\4\6\5\2\4\6\2\2\2q\2\24\3\2"+
-		"\2\2\4\"\3\2\2\2\6S\3\2\2\2\b\t\7\3\2\2\t\n\7\4\2\2\n\13\7\33\2\2\13\f"+
+		"\2\2\4\"\3\2\2\2\6S\3\2\2\2\b\t\7\3\2\2\t\n\7\4\2\2\n\13\7\34\2\2\13\f"+
 		"\7\4\2\2\f\r\7\5\2\2\r\25\5\4\3\2\16\17\7\3\2\2\17\20\7\4\2\2\20\21\7"+
-		"\33\2\2\21\22\7\4\2\2\22\23\7\6\2\2\23\25\5\4\3\2\24\b\3\2\2\2\24\16\3"+
-		"\2\2\2\25\3\3\2\2\2\26\27\b\3\1\2\27#\7\34\2\2\30#\7\7\2\2\31#\7\b\2\2"+
-		"\32#\7\t\2\2\33#\7\n\2\2\34\35\7\13\2\2\35#\7\35\2\2\36\37\7\f\2\2\37"+
+		"\34\2\2\21\22\7\4\2\2\22\23\7\6\2\2\23\25\5\4\3\2\24\b\3\2\2\2\24\16\3"+
+		"\2\2\2\25\3\3\2\2\2\26\27\b\3\1\2\27#\7\33\2\2\30#\7\7\2\2\31#\7\b\2\2"+
+		"\32#\7\t\2\2\33#\7\n\2\2\34\35\7\13\2\2\35#\7\33\2\2\36\37\7\f\2\2\37"+
 		" \5\4\3\2 !\7\r\2\2!#\3\2\2\2\"\26\3\2\2\2\"\30\3\2\2\2\"\31\3\2\2\2\""+
 		"\32\3\2\2\2\"\33\3\2\2\2\"\34\3\2\2\2\"\36\3\2\2\2#\64\3\2\2\2$%\f\6\2"+
 		"\2%&\7\16\2\2&\63\5\4\3\7\'(\f\5\2\2()\7\17\2\2)\63\5\4\3\6*+\f\3\2\2"+
@@ -998,7 +998,7 @@ public class XGrammarParser extends Parser {
 		"\3\2\2\2\64\62\3\2\2\2\64\65\3\2\2\2\65\5\3\2\2\2\66\64\3\2\2\2\678\b"+
 		"\4\1\28T\5\4\3\29:\5\4\3\2:;\7\23\2\2;<\5\4\3\2<T\3\2\2\2=>\5\4\3\2>?"+
 		"\7\24\2\2?@\5\4\3\2@T\3\2\2\2AB\5\4\3\2BC\7\25\2\2CD\5\4\3\2DT\3\2\2\2"+
-		"EF\5\4\3\2FG\7\26\2\2GH\5\4\3\2HT\3\2\2\2IJ\5\4\3\2JK\7\23\2\2KL\7\36"+
+		"EF\5\4\3\2FG\7\26\2\2GH\5\4\3\2HT\3\2\2\2IJ\5\4\3\2JK\7\23\2\2KL\7\35"+
 		"\2\2LT\3\2\2\2MN\7\f\2\2NO\5\6\4\2OP\7\r\2\2PT\3\2\2\2QR\7\31\2\2RT\5"+
 		"\6\4\3S\67\3\2\2\2S9\3\2\2\2S=\3\2\2\2SA\3\2\2\2SE\3\2\2\2SI\3\2\2\2S"+
 		"M\3\2\2\2SQ\3\2\2\2T]\3\2\2\2UV\f\5\2\2VW\7\27\2\2W\\\5\6\4\6XY\f\4\2"+

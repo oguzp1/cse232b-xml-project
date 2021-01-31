@@ -6,12 +6,12 @@ ap : 'doc(' '"'FILENAME'"' ')/' rp  #APDir
    | 'doc(' '"'FILENAME'"' ')//' rp #APDirRecursive
    ;
 
-rp : TAGNAME                        #RPTagName
+rp : NAME                           #RPTagName
    | '*'                            #RPStar
    | '.'                            #RPCurrentDir
    | '..'                           #RPParentDir
    | 'text()'                       #RPText
-   | '@'ATTRIBNAME                  #RPAttName
+   | '@'NAME                        #RPAttName
    | '(' rp ')'                     #RPParantheses
    | rp '/' rp                      #RPDir
    | rp '//' rp                     #RPDirRecursive
@@ -31,7 +31,6 @@ f  : rp                             #FRP
    | 'not' f                        #FNot
    ;
 
-FILENAME       : ([a-zA-Z0-9_\- ] | '.')+ ;
-TAGNAME        : [a-zA-Z_]+ ;
-ATTRIBNAME     : [a-zA-Z0-9_]+ ;
+NAME           : [a-zA-Z0-9_]+ ;
+FILENAME       : NAME '.' NAME ;
 STRINGCONSTANT : ["][ a-zA-Z0-9]*["] ;

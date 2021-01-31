@@ -2,17 +2,22 @@ package org.raaghavoguz.xmlproject;
 
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.tree.ParseTree;
 import org.raaghavoguz.xmlproject.grammar.XGrammarLexer;
 import org.raaghavoguz.xmlproject.grammar.XGrammarParser;
-import org.w3c.dom.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -54,17 +59,14 @@ public class EngineUtilities {
         return node.getNodeValue();
     }
 
-    public static int childCount(Node node) {
-        return node.getChildNodes().getLength();
-    }
-
     public static List<?> unique(List<?> list) {
         return new ArrayList<>(new LinkedHashSet<>(list));
     }
 
     public static List<Node> attrib(Node node, String attName) {
         List<Node> attList = new ArrayList<>();
-        Optional.ofNullable(node.getAttributes().getNamedItem(attName))
+        Optional.ofNullable(node.getAttributes())
+                .flatMap(attribs -> Optional.ofNullable(attribs.getNamedItem(attName)))
                 .ifPresent(attList::add);
         return attList;
     }
