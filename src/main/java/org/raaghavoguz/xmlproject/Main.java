@@ -26,16 +26,11 @@ public class Main {
                 Transformer transformer = TransformerFactory.newInstance().newTransformer();
                 transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
 
-                System.out.println("Query: " + line);
-                System.out.println("Answer:");
-
                 for (Node n : EngineFunctions.absolutePath(parser.ap())) {
                     DOMSource source = new DOMSource(n);
                     StreamResult result = new StreamResult(System.out);
                     transformer.transform(source, result);
                 }
-
-                System.out.println("\n");
             }
         } catch (Exception e){
             e.printStackTrace();
