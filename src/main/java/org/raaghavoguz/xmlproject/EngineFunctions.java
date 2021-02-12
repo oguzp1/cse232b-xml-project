@@ -4,6 +4,7 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.raaghavoguz.xmlproject.grammar.XGrammarParser;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class EngineFunctions {
@@ -143,5 +145,15 @@ public class EngineFunctions {
         } else {
             throw new IllegalArgumentException("Filter could not be parsed.");
         }
+    }
+
+    public static List<Node> xQuery(Document document, Map<String, ?> context, ParseTree tree, Node node) {
+        // TODO
+        return null;
+    }
+
+    public static boolean condition(Document document, Map<String, ?> context, ParseTree tree, Node node) {
+        // TODO
+        return true;
     }
 }

@@ -157,4 +157,154 @@ public interface XGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitFRPIdentical(XGrammarParser.FRPIdenticalContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code XQVar}
+	 * labeled alternative in {@link XGrammarParser#xq}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitXQVar(XGrammarParser.XQVarContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code XQString}
+	 * labeled alternative in {@link XGrammarParser#xq}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitXQString(XGrammarParser.XQStringContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code XQAbsolute}
+	 * labeled alternative in {@link XGrammarParser#xq}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitXQAbsolute(XGrammarParser.XQAbsoluteContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code XQConcat}
+	 * labeled alternative in {@link XGrammarParser#xq}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitXQConcat(XGrammarParser.XQConcatContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code XQDir}
+	 * labeled alternative in {@link XGrammarParser#xq}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitXQDir(XGrammarParser.XQDirContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code XQParantheses}
+	 * labeled alternative in {@link XGrammarParser#xq}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitXQParantheses(XGrammarParser.XQParanthesesContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code XQFLWR}
+	 * labeled alternative in {@link XGrammarParser#xq}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitXQFLWR(XGrammarParser.XQFLWRContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code XQLet}
+	 * labeled alternative in {@link XGrammarParser#xq}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitXQLet(XGrammarParser.XQLetContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code XQDirRecursive}
+	 * labeled alternative in {@link XGrammarParser#xq}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitXQDirRecursive(XGrammarParser.XQDirRecursiveContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code XQConstructor}
+	 * labeled alternative in {@link XGrammarParser#xq}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitXQConstructor(XGrammarParser.XQConstructorContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link XGrammarParser#forClause}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitForClause(XGrammarParser.ForClauseContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link XGrammarParser#letClause}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLetClause(XGrammarParser.LetClauseContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link XGrammarParser#whereClause}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWhereClause(XGrammarParser.WhereClauseContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link XGrammarParser#returnClause}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitReturnClause(XGrammarParser.ReturnClauseContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CondOr}
+	 * labeled alternative in {@link XGrammarParser#cond}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCondOr(XGrammarParser.CondOrContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CondAnd}
+	 * labeled alternative in {@link XGrammarParser#cond}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCondAnd(XGrammarParser.CondAndContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CondParantheses}
+	 * labeled alternative in {@link XGrammarParser#cond}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCondParantheses(XGrammarParser.CondParanthesesContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CondEmpty}
+	 * labeled alternative in {@link XGrammarParser#cond}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCondEmpty(XGrammarParser.CondEmptyContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CondSome}
+	 * labeled alternative in {@link XGrammarParser#cond}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCondSome(XGrammarParser.CondSomeContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CondNot}
+	 * labeled alternative in {@link XGrammarParser#cond}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCondNot(XGrammarParser.CondNotContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CondEqual}
+	 * labeled alternative in {@link XGrammarParser#cond}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCondEqual(XGrammarParser.CondEqualContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CondIdentical}
+	 * labeled alternative in {@link XGrammarParser#cond}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCondIdentical(XGrammarParser.CondIdenticalContext ctx);
 }

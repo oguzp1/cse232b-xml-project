@@ -259,4 +259,260 @@ public interface XGrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFRPIdentical(XGrammarParser.FRPIdenticalContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code XQVar}
+	 * labeled alternative in {@link XGrammarParser#xq}.
+	 * @param ctx the parse tree
+	 */
+	void enterXQVar(XGrammarParser.XQVarContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code XQVar}
+	 * labeled alternative in {@link XGrammarParser#xq}.
+	 * @param ctx the parse tree
+	 */
+	void exitXQVar(XGrammarParser.XQVarContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code XQString}
+	 * labeled alternative in {@link XGrammarParser#xq}.
+	 * @param ctx the parse tree
+	 */
+	void enterXQString(XGrammarParser.XQStringContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code XQString}
+	 * labeled alternative in {@link XGrammarParser#xq}.
+	 * @param ctx the parse tree
+	 */
+	void exitXQString(XGrammarParser.XQStringContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code XQAbsolute}
+	 * labeled alternative in {@link XGrammarParser#xq}.
+	 * @param ctx the parse tree
+	 */
+	void enterXQAbsolute(XGrammarParser.XQAbsoluteContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code XQAbsolute}
+	 * labeled alternative in {@link XGrammarParser#xq}.
+	 * @param ctx the parse tree
+	 */
+	void exitXQAbsolute(XGrammarParser.XQAbsoluteContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code XQConcat}
+	 * labeled alternative in {@link XGrammarParser#xq}.
+	 * @param ctx the parse tree
+	 */
+	void enterXQConcat(XGrammarParser.XQConcatContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code XQConcat}
+	 * labeled alternative in {@link XGrammarParser#xq}.
+	 * @param ctx the parse tree
+	 */
+	void exitXQConcat(XGrammarParser.XQConcatContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code XQDir}
+	 * labeled alternative in {@link XGrammarParser#xq}.
+	 * @param ctx the parse tree
+	 */
+	void enterXQDir(XGrammarParser.XQDirContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code XQDir}
+	 * labeled alternative in {@link XGrammarParser#xq}.
+	 * @param ctx the parse tree
+	 */
+	void exitXQDir(XGrammarParser.XQDirContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code XQParantheses}
+	 * labeled alternative in {@link XGrammarParser#xq}.
+	 * @param ctx the parse tree
+	 */
+	void enterXQParantheses(XGrammarParser.XQParanthesesContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code XQParantheses}
+	 * labeled alternative in {@link XGrammarParser#xq}.
+	 * @param ctx the parse tree
+	 */
+	void exitXQParantheses(XGrammarParser.XQParanthesesContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code XQFLWR}
+	 * labeled alternative in {@link XGrammarParser#xq}.
+	 * @param ctx the parse tree
+	 */
+	void enterXQFLWR(XGrammarParser.XQFLWRContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code XQFLWR}
+	 * labeled alternative in {@link XGrammarParser#xq}.
+	 * @param ctx the parse tree
+	 */
+	void exitXQFLWR(XGrammarParser.XQFLWRContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code XQLet}
+	 * labeled alternative in {@link XGrammarParser#xq}.
+	 * @param ctx the parse tree
+	 */
+	void enterXQLet(XGrammarParser.XQLetContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code XQLet}
+	 * labeled alternative in {@link XGrammarParser#xq}.
+	 * @param ctx the parse tree
+	 */
+	void exitXQLet(XGrammarParser.XQLetContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code XQDirRecursive}
+	 * labeled alternative in {@link XGrammarParser#xq}.
+	 * @param ctx the parse tree
+	 */
+	void enterXQDirRecursive(XGrammarParser.XQDirRecursiveContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code XQDirRecursive}
+	 * labeled alternative in {@link XGrammarParser#xq}.
+	 * @param ctx the parse tree
+	 */
+	void exitXQDirRecursive(XGrammarParser.XQDirRecursiveContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code XQConstructor}
+	 * labeled alternative in {@link XGrammarParser#xq}.
+	 * @param ctx the parse tree
+	 */
+	void enterXQConstructor(XGrammarParser.XQConstructorContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code XQConstructor}
+	 * labeled alternative in {@link XGrammarParser#xq}.
+	 * @param ctx the parse tree
+	 */
+	void exitXQConstructor(XGrammarParser.XQConstructorContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link XGrammarParser#forClause}.
+	 * @param ctx the parse tree
+	 */
+	void enterForClause(XGrammarParser.ForClauseContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link XGrammarParser#forClause}.
+	 * @param ctx the parse tree
+	 */
+	void exitForClause(XGrammarParser.ForClauseContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link XGrammarParser#letClause}.
+	 * @param ctx the parse tree
+	 */
+	void enterLetClause(XGrammarParser.LetClauseContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link XGrammarParser#letClause}.
+	 * @param ctx the parse tree
+	 */
+	void exitLetClause(XGrammarParser.LetClauseContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link XGrammarParser#whereClause}.
+	 * @param ctx the parse tree
+	 */
+	void enterWhereClause(XGrammarParser.WhereClauseContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link XGrammarParser#whereClause}.
+	 * @param ctx the parse tree
+	 */
+	void exitWhereClause(XGrammarParser.WhereClauseContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link XGrammarParser#returnClause}.
+	 * @param ctx the parse tree
+	 */
+	void enterReturnClause(XGrammarParser.ReturnClauseContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link XGrammarParser#returnClause}.
+	 * @param ctx the parse tree
+	 */
+	void exitReturnClause(XGrammarParser.ReturnClauseContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code CondOr}
+	 * labeled alternative in {@link XGrammarParser#cond}.
+	 * @param ctx the parse tree
+	 */
+	void enterCondOr(XGrammarParser.CondOrContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code CondOr}
+	 * labeled alternative in {@link XGrammarParser#cond}.
+	 * @param ctx the parse tree
+	 */
+	void exitCondOr(XGrammarParser.CondOrContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code CondAnd}
+	 * labeled alternative in {@link XGrammarParser#cond}.
+	 * @param ctx the parse tree
+	 */
+	void enterCondAnd(XGrammarParser.CondAndContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code CondAnd}
+	 * labeled alternative in {@link XGrammarParser#cond}.
+	 * @param ctx the parse tree
+	 */
+	void exitCondAnd(XGrammarParser.CondAndContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code CondParantheses}
+	 * labeled alternative in {@link XGrammarParser#cond}.
+	 * @param ctx the parse tree
+	 */
+	void enterCondParantheses(XGrammarParser.CondParanthesesContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code CondParantheses}
+	 * labeled alternative in {@link XGrammarParser#cond}.
+	 * @param ctx the parse tree
+	 */
+	void exitCondParantheses(XGrammarParser.CondParanthesesContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code CondEmpty}
+	 * labeled alternative in {@link XGrammarParser#cond}.
+	 * @param ctx the parse tree
+	 */
+	void enterCondEmpty(XGrammarParser.CondEmptyContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code CondEmpty}
+	 * labeled alternative in {@link XGrammarParser#cond}.
+	 * @param ctx the parse tree
+	 */
+	void exitCondEmpty(XGrammarParser.CondEmptyContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code CondSome}
+	 * labeled alternative in {@link XGrammarParser#cond}.
+	 * @param ctx the parse tree
+	 */
+	void enterCondSome(XGrammarParser.CondSomeContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code CondSome}
+	 * labeled alternative in {@link XGrammarParser#cond}.
+	 * @param ctx the parse tree
+	 */
+	void exitCondSome(XGrammarParser.CondSomeContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code CondNot}
+	 * labeled alternative in {@link XGrammarParser#cond}.
+	 * @param ctx the parse tree
+	 */
+	void enterCondNot(XGrammarParser.CondNotContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code CondNot}
+	 * labeled alternative in {@link XGrammarParser#cond}.
+	 * @param ctx the parse tree
+	 */
+	void exitCondNot(XGrammarParser.CondNotContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code CondEqual}
+	 * labeled alternative in {@link XGrammarParser#cond}.
+	 * @param ctx the parse tree
+	 */
+	void enterCondEqual(XGrammarParser.CondEqualContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code CondEqual}
+	 * labeled alternative in {@link XGrammarParser#cond}.
+	 * @param ctx the parse tree
+	 */
+	void exitCondEqual(XGrammarParser.CondEqualContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code CondIdentical}
+	 * labeled alternative in {@link XGrammarParser#cond}.
+	 * @param ctx the parse tree
+	 */
+	void enterCondIdentical(XGrammarParser.CondIdenticalContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code CondIdentical}
+	 * labeled alternative in {@link XGrammarParser#cond}.
+	 * @param ctx the parse tree
+	 */
+	void exitCondIdentical(XGrammarParser.CondIdenticalContext ctx);
 }
