@@ -4,20 +4,15 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.raaghavoguz.xmlproject.grammar.XGrammarLexer;
 import org.raaghavoguz.xmlproject.grammar.XGrammarParser;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
+import javax.print.Doc;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -77,12 +72,12 @@ public class EngineUtilities {
         return parentList;
     }
 
-    public static String tag(Node node) {
-        return node.getNodeName();
+    public static Optional<String> tag(Node node) {
+        return Optional.ofNullable(node.getNodeName());
     }
 
-    public static String text(Node node) {
-        return node.getNodeValue();
+    public static Optional<String> text(Node node) {
+        return Optional.ofNullable(node.getNodeValue());
     }
 
     public static List<Node> unique(List<Node> list) {
@@ -126,7 +121,7 @@ public class EngineUtilities {
                 if (children1.size() != children2.size())
                     continue;
 
-                if (eq(children1, children2))
+                if (children1.isEmpty() || eq(children1, children2))
                     return true;
             }
         }
@@ -135,7 +130,7 @@ public class EngineUtilities {
 
     public static boolean eq(List<Node> list, String str) {
         for (Node n : list) {
-            if (text(n).equals(str))
+            if (text(n).equals(Optional.of(str)))
                 return true;
         }
         return false;
@@ -145,5 +140,17 @@ public class EngineUtilities {
         XGrammarLexer lexer = new XGrammarLexer(cs);
         CommonTokenStream token = new CommonTokenStream(lexer);
         return new XGrammarParser(token);
+    }
+
+    public static Element makeElement(Document document, String tagName, List<Node> children) {
+        Element element = document.createElement(tagName);
+        children.stream()
+                .map(n -> document.importNode(n, true))
+                .forEach(element::appendChild);
+        return element;
+    }
+
+    public static Text makeText(Document document, String text) {
+        return document.createTextNode(text);
     }
 }

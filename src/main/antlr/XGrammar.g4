@@ -38,7 +38,7 @@ xq : VAR                                                      #XQVar
    | xq ',' xq                                                #XQConcat
    | xq '/' rp                                                #XQDir
    | xq '//' rp                                               #XQDirRecursive
-   | '<' NAME '>{' xq '}</' NAME '>'                          #XQConstructor
+   | '<' NAME '>' '{' xq '}' '</' NAME '>'                    #XQConstructor
    | forClause letClause? whereClause? returnClause           #XQFLWR
    | letClause xq                                             #XQLet
    ;
@@ -65,5 +65,5 @@ cond : xq '=' xq                                              #CondEqual
 
 NAME           : [a-zA-Z0-9_]+ ;
 FILENAME       : NAME '.' NAME ;
-STRINGCONSTANT : ["][ a-zA-Z0-9]*["] ;
+STRINGCONSTANT : ["](',' | '!' | '.' | ':' | '?' | [ a-zA-Z0-9])*["] ;
 VAR            : [$][a-zA-Z0-9_]+ ;
