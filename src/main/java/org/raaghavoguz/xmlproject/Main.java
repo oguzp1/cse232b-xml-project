@@ -27,11 +27,13 @@ public class Main {
                     .newDocumentBuilder()
                     .newDocument();
 
-            Node n = EngineFunctions.xQuery(document, new Context(), parser.xq()).get(0);
-
-            DOMSource source = new DOMSource(n);
-            StreamResult result = new StreamResult(System.out);
-            transformer.transform(source, result);
+            // Should be only one element if xquery
+            for (Node n : EngineFunctions.xQuery(document, new Context(), parser.xq())) {
+                DOMSource source = new DOMSource(n);
+                StreamResult result = new StreamResult(System.out);
+                transformer.transform(source, result);
+                System.out.println();
+            }
         } catch (Exception e){
             e.printStackTrace();
         }

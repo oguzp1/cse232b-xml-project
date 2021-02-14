@@ -102,10 +102,10 @@ public class EngineFunctions {
     }
 
     public static List<Node> absolutePath(ParseTree tree) {
-        String fileName = tree.getChild(2).getText();
+        String fileName = tree.getChild(1).getText();
         try {
             Node root = EngineUtilities.root(fileName);
-            ParseTree rp = tree.getChild(5);
+            ParseTree rp = tree.getChild(3);
 
             if (tree instanceof XGrammarParser.APDirContext) {
                 return relativePath(root, rp);

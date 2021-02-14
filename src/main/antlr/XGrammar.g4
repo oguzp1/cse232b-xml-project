@@ -2,8 +2,8 @@ grammar XGrammar;
 
 WS : [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines
 
-ap : 'doc(' '"'FILENAME'"' ')/' rp                            #APDir
-   | 'doc(' '"'FILENAME'"' ')//' rp                           #APDirRecursive
+ap : 'doc("' FILENAME '")/' rp                            #APDir
+   | 'doc("' FILENAME '")//' rp                           #APDirRecursive
    ;
 
 rp : NAME                                                     #RPTagName
