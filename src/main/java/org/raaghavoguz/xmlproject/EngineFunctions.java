@@ -5,10 +5,12 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.raaghavoguz.xmlproject.grammar.XGrammarParser;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class EngineFunctions {
@@ -17,7 +19,6 @@ public class EngineFunctions {
     private static List<Node> relativeDir(Node node, ParseTree rp1, ParseTree rp2) {
         return EngineUtilities.unique(
                 relativePath(node, rp1).stream()
-                        .filter(EngineUtilities::isNonTerminal)
                         .flatMap(n -> relativePath(n, rp2).stream())
                         .collect(Collectors.toList())
         );
@@ -27,7 +28,6 @@ public class EngineFunctions {
         return EngineUtilities.unique(
                 relativePath(node, rp1).stream()
                         .flatMap(n -> EngineUtilities.descendants(n).stream())
-                        .filter(EngineUtilities::isNonTerminal)
                         .flatMap(d -> relativePath(d, rp2).stream())
                         .collect(Collectors.toList())
         );
@@ -104,7 +104,7 @@ public class EngineFunctions {
     public static List<Node> absolutePath(ParseTree tree) {
         String fileName = tree.getChild(2).getText();
         try {
-            Element root = EngineUtilities.root(fileName);
+            Node root = EngineUtilities.root(fileName);
             ParseTree rp = tree.getChild(5);
 
             if (tree instanceof XGrammarParser.APDirContext) {

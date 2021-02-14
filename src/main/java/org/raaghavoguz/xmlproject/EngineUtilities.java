@@ -7,12 +7,14 @@ import org.raaghavoguz.xmlproject.grammar.XGrammarParser;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
-import javax.print.Doc;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -32,7 +34,7 @@ public class EngineUtilities {
         return !isTerminal(node);
     }
 
-    public static Element root(String fileName) throws ParserConfigurationException, SAXException, IOException {
+    public static Node root(String fileName) throws ParserConfigurationException, SAXException, IOException {
         File inputFile = new File(fileName);
 
         Document document = DocumentBuilderFactory.newInstance()
@@ -42,7 +44,7 @@ public class EngineUtilities {
         Element root = document.getDocumentElement();
         root.normalize();
 
-        return root;
+        return root.getParentNode();
     }
 
     public static List<Node> children(Node node) {
