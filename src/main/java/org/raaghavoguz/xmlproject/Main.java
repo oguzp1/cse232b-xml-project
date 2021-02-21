@@ -11,14 +11,15 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class Main {
-    public static void main(String[] args) {
-        try{
-            String query = new String(Files.readAllBytes(Paths.get(args[0])), StandardCharsets.UTF_8);
+    public static String getResults(String fileName) {
+        try {
+            String query = new String(Files.readAllBytes(Paths.get(fileName)), StandardCharsets.UTF_8);
             CharStream cs = CharStreams.fromString(query);
             XGrammarParser parser = EngineUtilities.parseCharStream(cs);
 
@@ -28,14 +29,22 @@ public class Main {
                     .newDocument();
 
             // Should be only one element if xquery
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
             for (Node n : EngineFunctions.xQuery(document, new Context(), parser.xq())) {
                 DOMSource source = new DOMSource(n);
-                StreamResult result = new StreamResult(System.out);
-                transformer.transform(source, result);
-                System.out.println();
+                transformer.transform(source, new StreamResult(outputStream));
+                outputStream.write(System.lineSeparator().getBytes(StandardCharsets.UTF_8));
             }
+
+            return outputStream.toString();
         } catch (Exception e){
             e.printStackTrace();
+            return "";
         }
+    }
+
+    public static void main(String[] args) {
+        System.out.print(getResults(args[0]));
     }
 }

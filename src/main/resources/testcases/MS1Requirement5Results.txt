@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><TITLE>SCENE I.  Rome. A street.</TITLE>
+<?xml version="1.0" encoding="UTF-8"?><TITLE>SCENE II.  A public place.</TITLE>
+<?xml version="1.0" encoding="UTF-8"?><TITLE>SCENE III.  The same. A street.</TITLE>
+<?xml version="1.0" encoding="UTF-8"?><TITLE>SCENE I.  Rome. BRUTUS's orchard.</TITLE>
+<?xml version="1.0" encoding="UTF-8"?><TITLE>SCENE II.  CAESAR's house.</TITLE>
+<?xml version="1.0" encoding="UTF-8"?><TITLE>SCENE III.  A street near the Capitol.</TITLE>
+<?xml version="1.0" encoding="UTF-8"?><TITLE>SCENE IV.  Another part of the same street, before the house of BRUTUS.</TITLE>
+<?xml version="1.0" encoding="UTF-8"?><TITLE>SCENE I.  Rome. Before the Capitol; the Senate sitting above.</TITLE>
+<?xml version="1.0" encoding="UTF-8"?><TITLE>SCENE II.  The Forum.</TITLE>
+<?xml version="1.0" encoding="UTF-8"?><TITLE>SCENE III.  A street.</TITLE>
+<?xml version="1.0" encoding="UTF-8"?><TITLE>SCENE I.  A house in Rome.</TITLE>
+<?xml version="1.0" encoding="UTF-8"?><TITLE>SCENE II.  Camp near Sardis. Before BRUTUS's tent.</TITLE>
+<?xml version="1.0" encoding="UTF-8"?><TITLE>SCENE III.  Brutus's tent.</TITLE>
+<?xml version="1.0" encoding="UTF-8"?><TITLE>SCENE I.  The plains of Philippi.</TITLE>
+<?xml version="1.0" encoding="UTF-8"?><TITLE>SCENE II.  The same. The field of battle.</TITLE>
+<?xml version="1.0" encoding="UTF-8"?><TITLE>SCENE III.  Another part of the field.</TITLE>
+<?xml version="1.0" encoding="UTF-8"?><TITLE>SCENE IV.  Another part of the field.</TITLE>
+<?xml version="1.0" encoding="UTF-8"?><TITLE>SCENE V.  Another part of the field.</TITLE>

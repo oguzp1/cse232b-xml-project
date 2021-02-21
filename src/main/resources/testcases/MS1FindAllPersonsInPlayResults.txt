@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><PERSONA>JULIUS CAESAR</PERSONA>
+<?xml version="1.0" encoding="UTF-8"?><PERSONA>ARTEMIDORUS Of Cnidos, a teacher of rhetoric. </PERSONA>
+<?xml version="1.0" encoding="UTF-8"?><PERSONA>A Soothsayer</PERSONA>
+<?xml version="1.0" encoding="UTF-8"?><PERSONA>CINNA, a poet. </PERSONA>
+<?xml version="1.0" encoding="UTF-8"?><PERSONA>Another Poet</PERSONA>
+<?xml version="1.0" encoding="UTF-8"?><PERSONA>PINDARUS, servant to Cassius.</PERSONA>
+<?xml version="1.0" encoding="UTF-8"?><PERSONA>CALPURNIA, wife to Caesar.</PERSONA>
+<?xml version="1.0" encoding="UTF-8"?><PERSONA>PORTIA, wife to Brutus.</PERSONA>
+<?xml version="1.0" encoding="UTF-8"?><PERSONA>Senators, Citizens, Guards, Attendants, &amp;c.</PERSONA>
+<?xml version="1.0" encoding="UTF-8"?><PERSONA>OCTAVIUS CAESAR</PERSONA>
+<?xml version="1.0" encoding="UTF-8"?><PERSONA>MARCUS ANTONIUS</PERSONA>
+<?xml version="1.0" encoding="UTF-8"?><PERSONA>M. AEMILIUS LEPIDUS</PERSONA>
+<?xml version="1.0" encoding="UTF-8"?><PERSONA>CICERO</PERSONA>
+<?xml version="1.0" encoding="UTF-8"?><PERSONA>PUBLIUS</PERSONA>
+<?xml version="1.0" encoding="UTF-8"?><PERSONA>POPILIUS LENA</PERSONA>
+<?xml version="1.0" encoding="UTF-8"?><PERSONA>MARCUS BRUTUS</PERSONA>
+<?xml version="1.0" encoding="UTF-8"?><PERSONA>CASSIUS</PERSONA>
+<?xml version="1.0" encoding="UTF-8"?><PERSONA>CASCA</PERSONA>
+<?xml version="1.0" encoding="UTF-8"?><PERSONA>TREBONIUS</PERSONA>
+<?xml version="1.0" encoding="UTF-8"?><PERSONA>LIGARIUS</PERSONA>
+<?xml version="1.0" encoding="UTF-8"?><PERSONA>DECIUS BRUTUS</PERSONA>
+<?xml version="1.0" encoding="UTF-8"?><PERSONA>METELLUS CIMBER</PERSONA>
+<?xml version="1.0" encoding="UTF-8"?><PERSONA>CINNA</PERSONA>
+<?xml version="1.0" encoding="UTF-8"?><PERSONA>FLAVIUS</PERSONA>
+<?xml version="1.0" encoding="UTF-8"?><PERSONA>MARULLUS</PERSONA>
+<?xml version="1.0" encoding="UTF-8"?><PERSONA>LUCILIUS</PERSONA>
+<?xml version="1.0" encoding="UTF-8"?><PERSONA>TITINIUS</PERSONA>
+<?xml version="1.0" encoding="UTF-8"?><PERSONA>MESSALA</PERSONA>
+<?xml version="1.0" encoding="UTF-8"?><PERSONA>Young CATO</PERSONA>
+<?xml version="1.0" encoding="UTF-8"?><PERSONA>VOLUMNIUS</PERSONA>
+<?xml version="1.0" encoding="UTF-8"?><PERSONA>VARRO</PERSONA>
+<?xml version="1.0" encoding="UTF-8"?><PERSONA>CLITUS</PERSONA>
+<?xml version="1.0" encoding="UTF-8"?><PERSONA>CLAUDIUS</PERSONA>
+<?xml version="1.0" encoding="UTF-8"?><PERSONA>STRATO</PERSONA>
+<?xml version="1.0" encoding="UTF-8"?><PERSONA>LUCIUS</PERSONA>
+<?xml version="1.0" encoding="UTF-8"?><PERSONA>DARDANIUS</PERSONA>
