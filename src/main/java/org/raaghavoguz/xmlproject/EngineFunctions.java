@@ -285,7 +285,7 @@ public class EngineFunctions {
             ParseTree xq2 = tree.getChild(2);
             return EngineUtilities.is(xQuery(document, context, xq1), xQuery(document, context, xq2));
         } else if (tree instanceof XGrammarParser.CondEmptyContext) {
-            return xQuery(document, context, tree.getChild(1)).isEmpty();
+            return xQuery(document, context, tree.getChild(2)).isEmpty();
         } else if (tree instanceof XGrammarParser.CondSomeContext) {
             int childCount = tree.getChildCount();
             ParseTree xqLast = tree.getChild(childCount - 1);

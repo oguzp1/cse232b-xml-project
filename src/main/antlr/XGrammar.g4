@@ -2,8 +2,8 @@ grammar XGrammar;
 
 WS : [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines
 
-ap : 'doc("' FILENAME '")/' rp                            #APDir
-   | 'doc("' FILENAME '")//' rp                           #APDirRecursive
+ap : 'doc("' FILENAME '")/' rp                                #APDir
+   | 'doc("' FILENAME '")//' rp                               #APDirRecursive
    ;
 
 rp : NAME                                                     #RPTagName
@@ -55,7 +55,7 @@ cond : xq '=' xq                                              #CondEqual
      | xq 'eq' xq                                             #CondEqual
      | xq '==' xq                                             #CondIdentical
      | xq 'is' xq                                             #CondIdentical
-     | 'empty(' xq ')'                                        #CondEmpty
+     | 'empty' '(' xq ')'                                     #CondEmpty
      | 'some' VAR 'in' xq (',' VAR 'in' xq)* 'satisfies' cond #CondSome
      | '(' cond ')'                                           #CondParantheses
      | cond 'and' cond                                        #CondAnd

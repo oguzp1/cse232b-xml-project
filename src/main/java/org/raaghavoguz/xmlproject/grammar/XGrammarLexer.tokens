@@ -72,6 +72,6 @@ VAR=41
 ':='=31
 'where'=32
 'return'=33
-'empty('=34
+'empty'=34
 'some'=35
 'satisfies'=36
