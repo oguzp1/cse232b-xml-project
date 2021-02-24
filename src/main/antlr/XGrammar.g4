@@ -2,15 +2,15 @@ grammar XGrammar;
 
 WS : [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines
 
-ap : 'doc("' FILENAME '")/' rp                                #APDir
-   | 'doc("' FILENAME '")//' rp                               #APDirRecursive
+ap : 'doc' '(' '"' FILENAME '"' ')' '/' rp                    #APDir
+   | 'doc' '(' '"' FILENAME '"' ')' '//' rp                   #APDirRecursive
    ;
 
 rp : NAME                                                     #RPTagName
    | '*'                                                      #RPStar
    | '.'                                                      #RPCurrentDir
    | '..'                                                     #RPParentDir
-   | 'text()'                                                 #RPText
+   | 'text' '(' ')'                                           #RPText
    | '@'NAME                                                  #RPAttName
    | '(' rp ')'                                               #RPParantheses
    | rp '/' rp                                                #RPDir
@@ -38,7 +38,7 @@ xq : VAR                                                      #XQVar
    | xq ',' xq                                                #XQConcat
    | xq '/' rp                                                #XQDir
    | xq '//' rp                                               #XQDirRecursive
-   | '<' NAME '>' '{' xq '}' '</' NAME '>'                    #XQConstructor
+   | '<' NAME '>' '{' xq '}' '<' '/' NAME '>'                 #XQConstructor
    | forClause letClause? whereClause? returnClause           #XQFLWR
    | letClause xq                                             #XQLet
    ;
