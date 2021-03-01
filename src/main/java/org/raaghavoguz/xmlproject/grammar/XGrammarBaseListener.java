@@ -292,6 +292,18 @@ public class XGrammarBaseListener implements XGrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterXQJoin(XGrammarParser.XQJoinContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitXQJoin(XGrammarParser.XQJoinContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterXQAbsolute(XGrammarParser.XQAbsoluteContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -419,6 +431,66 @@ public class XGrammarBaseListener implements XGrammarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitWhereClause(XGrammarParser.WhereClauseContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJoinConstructor(XGrammarParser.JoinConstructorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJoinConstructor(XGrammarParser.JoinConstructorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJoinCond(XGrammarParser.JoinCondContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJoinCond(XGrammarParser.JoinCondContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJoinProj(XGrammarParser.JoinProjContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJoinProj(XGrammarParser.JoinProjContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJoinReturn(XGrammarParser.JoinReturnContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJoinReturn(XGrammarParser.JoinReturnContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJoinClause(XGrammarParser.JoinClauseContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJoinClause(XGrammarParser.JoinClauseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

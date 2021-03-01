@@ -284,6 +284,18 @@ public interface XGrammarListener extends ParseTreeListener {
 	 */
 	void exitXQString(XGrammarParser.XQStringContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code XQJoin}
+	 * labeled alternative in {@link XGrammarParser#xq}.
+	 * @param ctx the parse tree
+	 */
+	void enterXQJoin(XGrammarParser.XQJoinContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code XQJoin}
+	 * labeled alternative in {@link XGrammarParser#xq}.
+	 * @param ctx the parse tree
+	 */
+	void exitXQJoin(XGrammarParser.XQJoinContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code XQAbsolute}
 	 * labeled alternative in {@link XGrammarParser#xq}.
 	 * @param ctx the parse tree
@@ -409,6 +421,56 @@ public interface XGrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitWhereClause(XGrammarParser.WhereClauseContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link XGrammarParser#joinConstructor}.
+	 * @param ctx the parse tree
+	 */
+	void enterJoinConstructor(XGrammarParser.JoinConstructorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link XGrammarParser#joinConstructor}.
+	 * @param ctx the parse tree
+	 */
+	void exitJoinConstructor(XGrammarParser.JoinConstructorContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link XGrammarParser#joinCond}.
+	 * @param ctx the parse tree
+	 */
+	void enterJoinCond(XGrammarParser.JoinCondContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link XGrammarParser#joinCond}.
+	 * @param ctx the parse tree
+	 */
+	void exitJoinCond(XGrammarParser.JoinCondContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link XGrammarParser#joinProj}.
+	 * @param ctx the parse tree
+	 */
+	void enterJoinProj(XGrammarParser.JoinProjContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link XGrammarParser#joinProj}.
+	 * @param ctx the parse tree
+	 */
+	void exitJoinProj(XGrammarParser.JoinProjContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link XGrammarParser#joinReturn}.
+	 * @param ctx the parse tree
+	 */
+	void enterJoinReturn(XGrammarParser.JoinReturnContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link XGrammarParser#joinReturn}.
+	 * @param ctx the parse tree
+	 */
+	void exitJoinReturn(XGrammarParser.JoinReturnContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link XGrammarParser#joinClause}.
+	 * @param ctx the parse tree
+	 */
+	void enterJoinClause(XGrammarParser.JoinClauseContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link XGrammarParser#joinClause}.
+	 * @param ctx the parse tree
+	 */
+	void exitJoinClause(XGrammarParser.JoinClauseContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link XGrammarParser#returnClause}.
 	 * @param ctx the parse tree

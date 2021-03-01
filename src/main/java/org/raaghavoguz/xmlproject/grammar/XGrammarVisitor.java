@@ -172,6 +172,13 @@ public interface XGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitXQString(XGrammarParser.XQStringContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code XQJoin}
+	 * labeled alternative in {@link XGrammarParser#xq}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitXQJoin(XGrammarParser.XQJoinContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code XQAbsolute}
 	 * labeled alternative in {@link XGrammarParser#xq}.
 	 * @param ctx the parse tree
@@ -245,6 +252,36 @@ public interface XGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitWhereClause(XGrammarParser.WhereClauseContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link XGrammarParser#joinConstructor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJoinConstructor(XGrammarParser.JoinConstructorContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link XGrammarParser#joinCond}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJoinCond(XGrammarParser.JoinCondContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link XGrammarParser#joinProj}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJoinProj(XGrammarParser.JoinProjContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link XGrammarParser#joinReturn}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJoinReturn(XGrammarParser.JoinReturnContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link XGrammarParser#joinClause}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJoinClause(XGrammarParser.JoinClauseContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link XGrammarParser#returnClause}.
 	 * @param ctx the parse tree

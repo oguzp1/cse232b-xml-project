@@ -7,11 +7,10 @@ import org.raaghavoguz.xmlproject.grammar.XGrammarParser;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class EngineFunctions {
     private EngineFunctions() { }
@@ -270,6 +269,59 @@ public class EngineFunctions {
             ParseTree xqLast = tree.getChild(1);
             Context ctx = letExtend(document, context, letClause);
             return xQuery(document, ctx, xqLast);
+        } else if (tree instanceof XGrammarParser.XQJoinContext) {
+            ParseTree tupleGenerator1 = tree.getChild(2);
+            ParseTree tupleGenerator2 = tree.getChild(4);
+            ParseTree condGenerator1 = tree.getChild(6);
+            ParseTree condGenerator2 = tree.getChild(8);
+
+            List<Node> tuples1 = xQuery(document, context, tupleGenerator1);
+            List<Node> tuples2 = xQuery(document, context, tupleGenerator2);
+
+            List<String> nameList1 = IntStream.range(1, condGenerator1.getChildCount())
+                    .mapToObj(condGenerator1::getChild)
+                    .map(ParseTree::getText)
+                    .collect(Collectors.toList());
+            List<String> nameList2 = IntStream.range(1, condGenerator2.getChildCount())
+                    .mapToObj(condGenerator2::getChild)
+                    .map(ParseTree::getText)
+                    .collect(Collectors.toList());
+
+            Map<String, Map<String, Node>> map = new HashMap<>();
+
+            for (Node tuple : tuples1) {
+                EngineUtilities.children(tuple).forEach(c -> {
+                    String name = c.getNodeName();
+                    if (nameList1.contains(name)) {
+                        String correspondingAttrib = nameList2.get(nameList1.indexOf(name));
+                        map.putIfAbsent(correspondingAttrib, new HashMap<>());
+                        map.get(correspondingAttrib).put(c.getNodeValue(), c);
+                    }
+                });
+            }
+
+            List<Node> jointNodes = new ArrayList<>();
+
+            for (Node tuple : tuples2) {
+                List<Node> children = EngineUtilities.children(tuple);
+                List<Node> filteredChildren = children.stream()
+                        .filter(c -> nameList2.contains(c.getNodeName()))
+                        .collect(Collectors.toList());
+
+                if (filteredChildren.stream()
+                        .allMatch(c -> map.get(c.getNodeName()).containsKey(c.getNodeValue()))) {
+                    Node nodeToMerge = filteredChildren.stream()
+                            .map(c -> map.get(c.getNodeName()).get(c.getNodeValue()))
+                            .findFirst()
+                            .get();
+
+                    List<Node> allChildren = new ArrayList<>(EngineUtilities.children(nodeToMerge));
+                    allChildren.addAll(children);
+                    jointNodes.add(EngineUtilities.makeElement(document, "tuple", allChildren));
+                }
+            }
+
+            return jointNodes;
         } else {
             throw new IllegalArgumentException("XQuery could not be parsed.");
         }

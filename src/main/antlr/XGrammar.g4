@@ -41,6 +41,7 @@ xq : VAR                                                      #XQVar
    | '<' NAME '>' '{' xq '}' '<' '/' NAME '>'                 #XQConstructor
    | forClause letClause? whereClause? returnClause           #XQFLWR
    | letClause xq                                             #XQLet
+   | joinClause                                               #XQJoin
    ;
 
 forClause : 'for' VAR 'in' xq (',' VAR 'in' xq)* ;
@@ -49,7 +50,17 @@ letClause : 'let' VAR ':=' xq (',' VAR ':=' xq)* ;
 
 whereClause : 'where' cond ;
 
-returnClause : 'return' xq ;
+joinConstructor : '<' NAME '>' '{' VAR '}' '<' '/' NAME '>' ;
+
+joinCond : '[' NAME (',' NAME)* ']' ;
+
+joinProj : (forClause whereClause? joinReturn) | joinClause;
+
+joinReturn : 'return' '<' 'tuple' '>' joinConstructor (',' joinConstructor)* '<' '/' 'tuple' '>' ;
+
+joinClause : 'join' '(' joinProj ',' joinProj ',' joinCond ',' joinCond ')' ;
+
+returnClause : ('return' xq) | joinReturn ;
 
 cond : xq '=' xq                                              #CondEqual
      | xq 'eq' xq                                             #CondEqual
