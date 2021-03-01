@@ -279,10 +279,12 @@ public class EngineFunctions {
             List<Node> tuples2 = xQuery(document, context, tupleGenerator2);
 
             List<String> nameList1 = IntStream.range(1, condGenerator1.getChildCount())
+                    .filter(i -> i % 2 == 1)
                     .mapToObj(condGenerator1::getChild)
                     .map(ParseTree::getText)
                     .collect(Collectors.toList());
             List<String> nameList2 = IntStream.range(1, condGenerator2.getChildCount())
+                    .filter(i -> i % 2 == 1)
                     .mapToObj(condGenerator2::getChild)
                     .map(ParseTree::getText)
                     .collect(Collectors.toList());
@@ -295,7 +297,7 @@ public class EngineFunctions {
                     if (nameList1.contains(name)) {
                         String correspondingAttrib = nameList2.get(nameList1.indexOf(name));
                         map.putIfAbsent(correspondingAttrib, new HashMap<>());
-                        map.get(correspondingAttrib).put(c.getNodeValue(), c);
+                        map.get(correspondingAttrib).put(c.getNodeValue(), tuple);
                     }
                 });
             }
@@ -308,7 +310,7 @@ public class EngineFunctions {
                         .filter(c -> nameList2.contains(c.getNodeName()))
                         .collect(Collectors.toList());
 
-                if (filteredChildren.stream()
+                if (!filteredChildren.isEmpty() && filteredChildren.stream()
                         .allMatch(c -> map.get(c.getNodeName()).containsKey(c.getNodeValue()))) {
                     Node nodeToMerge = filteredChildren.stream()
                             .map(c -> map.get(c.getNodeName()).get(c.getNodeValue()))
