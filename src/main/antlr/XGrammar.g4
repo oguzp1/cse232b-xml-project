@@ -41,26 +41,8 @@ xq : VAR                                                      #XQVar
    | '<' NAME '>' '{' xq '}' '<' '/' NAME '>'                 #XQConstructor
    | forClause letClause? whereClause? returnClause           #XQFLWR
    | letClause xq                                             #XQLet
-   | joinClause                                               #XQJoin
+   | 'join' '(' xq ',' xq ',' joinCond ',' joinCond ')'       #XQJoin
    ;
-
-forClause : 'for' VAR 'in' xq (',' VAR 'in' xq)* ;
-
-letClause : 'let' VAR ':=' xq (',' VAR ':=' xq)* ;
-
-whereClause : 'where' cond ;
-
-joinConstructor : '<' NAME '>' '{' VAR '}' '<' '/' NAME '>' ;
-
-joinCond : '[' NAME (',' NAME)* ']' ;
-
-joinProj : (forClause whereClause? joinReturn) | joinClause;
-
-joinReturn : 'return' '<' 'tuple' '>' joinConstructor (',' joinConstructor)* '<' '/' 'tuple' '>' ;
-
-joinClause : 'join' '(' joinProj ',' joinProj ',' joinCond ',' joinCond ')' ;
-
-returnClause : ('return' xq) | joinReturn ;
 
 cond : xq '=' xq                                              #CondEqual
      | xq 'eq' xq                                             #CondEqual
@@ -73,6 +55,16 @@ cond : xq '=' xq                                              #CondEqual
      | cond 'or' cond                                         #CondOr
      | 'not' cond                                             #CondNot
      ;
+
+forClause : 'for' VAR 'in' xq (',' VAR 'in' xq)* ;
+
+letClause : 'let' VAR ':=' xq (',' VAR ':=' xq)* ;
+
+whereClause : 'where' cond ;
+
+returnClause : 'return' xq ;
+
+joinCond : '[' NAME (',' NAME)* ']' ;
 
 NAME           : [a-zA-Z0-9_]+ ;
 FILENAME       : NAME '.' NAME ;

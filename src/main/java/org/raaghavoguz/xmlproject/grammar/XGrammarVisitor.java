@@ -235,60 +235,6 @@ public interface XGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitXQConstructor(XGrammarParser.XQConstructorContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link XGrammarParser#forClause}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitForClause(XGrammarParser.ForClauseContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link XGrammarParser#letClause}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitLetClause(XGrammarParser.LetClauseContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link XGrammarParser#whereClause}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitWhereClause(XGrammarParser.WhereClauseContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link XGrammarParser#joinConstructor}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJoinConstructor(XGrammarParser.JoinConstructorContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link XGrammarParser#joinCond}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJoinCond(XGrammarParser.JoinCondContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link XGrammarParser#joinProj}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJoinProj(XGrammarParser.JoinProjContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link XGrammarParser#joinReturn}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJoinReturn(XGrammarParser.JoinReturnContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link XGrammarParser#joinClause}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJoinClause(XGrammarParser.JoinClauseContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link XGrammarParser#returnClause}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitReturnClause(XGrammarParser.ReturnClauseContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code CondOr}
 	 * labeled alternative in {@link XGrammarParser#cond}.
 	 * @param ctx the parse tree
@@ -344,4 +290,34 @@ public interface XGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitCondIdentical(XGrammarParser.CondIdenticalContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link XGrammarParser#forClause}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitForClause(XGrammarParser.ForClauseContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link XGrammarParser#letClause}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLetClause(XGrammarParser.LetClauseContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link XGrammarParser#whereClause}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWhereClause(XGrammarParser.WhereClauseContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link XGrammarParser#returnClause}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitReturnClause(XGrammarParser.ReturnClauseContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link XGrammarParser#joinCond}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJoinCond(XGrammarParser.JoinCondContext ctx);
 }

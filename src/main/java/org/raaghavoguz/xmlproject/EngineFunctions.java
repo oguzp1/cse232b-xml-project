@@ -1,7 +1,5 @@
 package org.raaghavoguz.xmlproject;
 
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.raaghavoguz.xmlproject.grammar.XGrammarParser;
 import org.w3c.dom.Document;
@@ -10,7 +8,6 @@ import org.w3c.dom.Node;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class EngineFunctions {
     private EngineFunctions() { }
@@ -109,8 +106,7 @@ public class EngineFunctions {
             if (tree instanceof XGrammarParser.APDirContext) {
                 return relativePath(root, rp);
             } else if (tree instanceof XGrammarParser.APDirRecursiveContext) {
-                CharStream cs = CharStreams.fromString(".");
-                XGrammarParser parser = EngineUtilities.parseCharStream(cs);
+                XGrammarParser parser = EngineUtilities.parseString(".");
                 ParseTree dot = parser.rp();
 
                 return relativeDirRecursive(root, dot, rp);

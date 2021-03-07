@@ -1,9 +1,12 @@
 package org.raaghavoguz.xmlproject;
 
 import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.raaghavoguz.xmlproject.grammar.XGrammarLexer;
 import org.raaghavoguz.xmlproject.grammar.XGrammarParser;
+import org.raaghavoguz.xmlproject.grammar.XSimpleGrammarLexer;
+import org.raaghavoguz.xmlproject.grammar.XSimpleGrammarParser;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
@@ -138,10 +141,18 @@ public class EngineUtilities {
         return false;
     }
 
-    public static XGrammarParser parseCharStream(CharStream cs) {
+    public static XGrammarParser parseString(String s) {
+        CharStream cs = CharStreams.fromString(s);
         XGrammarLexer lexer = new XGrammarLexer(cs);
         CommonTokenStream token = new CommonTokenStream(lexer);
         return new XGrammarParser(token);
+    }
+
+    public static XSimpleGrammarParser parseSimpleString(String s) {
+        CharStream cs = CharStreams.fromString(s);
+        XSimpleGrammarLexer lexer = new XSimpleGrammarLexer(cs);
+        CommonTokenStream token = new CommonTokenStream(lexer);
+        return new XSimpleGrammarParser(token);
     }
 
     public static Element makeElement(Document document, String tagName, List<Node> children) {

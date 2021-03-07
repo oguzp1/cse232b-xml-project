@@ -1,7 +1,5 @@
 package org.raaghavoguz.xmlproject;
 
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CharStreams;
 import org.raaghavoguz.xmlproject.grammar.XGrammarParser;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -19,14 +17,13 @@ import java.nio.file.Paths;
 public class Main {
     public static String getResults(String fileName) {
         try {
-            String query = new String(Files.readAllBytes(Paths.get(fileName)), StandardCharsets.UTF_8);
-            CharStream cs = CharStreams.fromString(query);
-            XGrammarParser parser = EngineUtilities.parseCharStream(cs);
-
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             Document document = DocumentBuilderFactory.newInstance()
                     .newDocumentBuilder()
                     .newDocument();
+
+            String query = new String(Files.readAllBytes(Paths.get(fileName)), StandardCharsets.UTF_8);
+            XGrammarParser parser = QueryRewriter.getOptimizedQuery(query);
 
             // Should be only one element if xquery
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
