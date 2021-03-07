@@ -5,6 +5,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.raaghavoguz.xmlproject.grammar.XGrammarParser;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -23,7 +24,31 @@ public class QueryRewriter {
     private static List<Set<String>> getDependentExpressions(ParseTree forClause) {
         // TODO: start with setting ap path variables as 1-element sets,
         //  build upon the sets by appending variables that depend on previous sets
-        return new ArrayList<>();
+        List<Set<String>> dependentExpressions=new ArrayList<>();
+        for(int i=0;i<forClause.getChildCount();i++)
+        {
+            if(forClause.getChild(i) instanceof XGrammarParser.XqContext)
+            {
+                if(forClause.getChild(i).getChild(0) instanceof XGrammarParser.XQAbsoluteContext){
+                    Set<String> hash_Set = new HashSet<String>();
+                    hash_Set.add(forClause.getChild(i-2).toString());
+                    dependentExpressions.add(hash_Set);
+                }
+            }
+        }
+        for (int i=1;i<forClause.getChildCount();i+=4)
+        {
+
+            for(int j=0;j<dependentExpressions.size();j++)
+            {
+                if(dependentExpressions.get(j).contains(forClause.getChild(i+2).getChild(0).getChild(0).toString()))
+                {
+                        dependentExpressions.get(j).add(forClause.getChild(i).toString());
+                }
+            }
+
+        }
+        return dependentExpressions;
     }
 
     private static List<List<Integer>> getConditionDependencies(ParseTree whereClause) {
