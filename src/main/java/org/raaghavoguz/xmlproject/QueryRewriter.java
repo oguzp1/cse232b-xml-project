@@ -24,19 +24,19 @@ public class QueryRewriter {
     private static List<Set<String>> getDependentExpressions(ParseTree forClause) {
         // TODO: start with setting ap path variables as 1-element sets,
         //  build upon the sets by appending variables that depend on previous sets
-        List<Set<String>> varsets=new ArrayList<>();
-        List<Set<String>> dependentExpressions=new ArrayList<>();
+        List<List<String>> VarList=new ArrayList<>();
+        List<List<String>> dependentExpressions=new ArrayList<>();
         for(int i=0;i<forClause.getChildCount();i++)
         {
             if(forClause.getChild(i) instanceof XGrammarParser.XqContext)
             {
                 if(forClause.getChild(i).getChild(0) instanceof XGrammarParser.XQAbsoluteContext){
-                    Set<String> hash_SetVar = new HashSet<String>();
-                    Set<String> StringSet = new HashSet<String>();
-                    hash_SetVar.add(forClause.getChild(i-2).getText());
-                    varsets.add(hash_SetVar);
-                    StringSet.add(forClause.getChild(i-2).getText()+"in"+PostOrder(forClause.getChild(i)));
-                    dependentExpressions.add(StringSet);
+                    List<String> tempVar = new ArrayList<>();
+                    List<String> tempString = new ArrayList<>();
+                    tempVar.add(forClause.getChild(i-2).getText());
+                    VarList.add(tempVar);
+                    tempString.add(forClause.getChild(i-2).getText()+"in"+PostOrder(forClause.getChild(i)));
+                    dependentExpressions.add(tempString);
                 }
             }
         }
@@ -47,7 +47,7 @@ public class QueryRewriter {
             {
                 if(dependentExpressions.get(j).contains(forClause.getChild(i+2).getChild(0).getChild(0).getText()))
                 {
-                        varsets.get(j).add(forClause.getChild(i).getText());
+                        VarList.get(j).add(forClause.getChild(i).getText());
                         dependentExpressions.get(j).add(forClause.getChild(i-2).getText()+"in"+PostOrder(forClause.getChild(i)));
                 }
             }
