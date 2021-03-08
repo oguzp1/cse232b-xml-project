@@ -63,41 +63,32 @@ public class QueryRewriter {
 
     private static Map<String, List<Integer>> getConditionDependencies(ParseTree whereClause, List<List<String>> dependentExpressions) {
         // TODO: read the chain of EQ and AND conditions, identify the indexes of the sets their checks depend on
-    Queue<ParseTree> queue=new LinkedList<>();
-    Map<String,List<Integer>> conditionDependencies=new HashMap<>();
-    queue.add(whereClause);
-      while(!queue.isEmpty())
-      {
-          ParseTree x=queue.remove();
-          if(x instanceof XGrammarParser.CondEqualContext)
-          {
-              String l=x.getChild(0).getChild(0).getText();
-              String r=x.getChild(2).getChild(0).getText();
-              int lval=-1,rval=-1;
 
+        Map<String,List<Integer>> conditionDependencies=new HashMap<>();
 
-           for(int i=0;i<dependentExpressions.size();i++)
-           {
-               if(dependentExpressions.get(i).stream().anyMatch(str->str.contains(l)))
-                   lval=i;
-               if(dependentExpressions.get(i).stream().anyMatch(str->str.contains(r)))
-                   rval=i;
-           }
+        String[] whereQuery=postOrder(whereClause).split(" ");
+        for(int x=2;x<whereQuery.length;x+=4)
+        {
+            // index 2 is first eq, and every 4th string is eq
+            String l=whereQuery[x-1];
+            String r=whereQuery[x+1];
+            int lval=-1,rval=-1;
 
-           List<Integer> positions=new ArrayList<>();
-           positions.add(lval);
-           if(rval>-1)
-           positions.add(rval);
+            for(int i=0;i<dependentExpressions.size();i++)
+            {
+                if(dependentExpressions.get(i).stream().anyMatch(str->str.contains(l)))
+                    lval=i;
+                if(dependentExpressions.get(i).stream().anyMatch(str->str.contains(r)))
+                    rval=i;
+            }
 
-           conditionDependencies.put(l+" eq "+r,positions);
-          }
-          else {
-              for (int i = 0; i < x.getChildCount(); i++)
-                  queue.add(x.getChild(i));
-          }
+            List<Integer> positions=new ArrayList<>();
+            positions.add(lval);
+            if(rval>-1)
+                positions.add(rval);
 
-
-      }
+            conditionDependencies.put(l+" eq "+r,positions);
+        }
 
         return conditionDependencies;
     }
