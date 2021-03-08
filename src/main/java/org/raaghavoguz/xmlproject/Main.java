@@ -1,6 +1,7 @@
 package org.raaghavoguz.xmlproject;
 
 import org.raaghavoguz.xmlproject.grammar.XGrammarParser;
+import org.raaghavoguz.xmlproject.rewriter.QueryRewriter;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
