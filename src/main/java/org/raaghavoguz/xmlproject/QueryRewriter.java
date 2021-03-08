@@ -61,9 +61,45 @@ public class QueryRewriter {
         return ans.toString();
     }
 
-    private static Map<String, List<Integer>> getConditionDependencies(ParseTree whereClause) {
+    private static Map<String, List<Integer>> getConditionDependencies(ParseTree whereClause, List<List<String>> dependentExpressions) {
         // TODO: read the chain of EQ and AND conditions, identify the indexes of the sets their checks depend on
-        return new HashMap<>();
+    Queue<ParseTree> queue=new LinkedList<>();
+    Map<String,List<Integer>> conditionDependencies=new HashMap<>();
+    queue.add(whereClause);
+      while(!queue.isEmpty())
+      {
+          ParseTree x=queue.remove();
+          if(x instanceof XGrammarParser.CondEqualContext)
+          {
+              String l=x.getChild(0).getChild(0).getText();
+              String r=x.getChild(2).getChild(0).getText();
+              int lval=-1,rval=-1;
+
+
+           for(int i=0;i<dependentExpressions.size();i++)
+           {
+               if(dependentExpressions.get(i).stream().anyMatch(str->str.contains(l)))
+                   lval=i;
+               if(dependentExpressions.get(i).stream().anyMatch(str->str.contains(r)))
+                   rval=i;
+           }
+
+           List<Integer> positions=new ArrayList<>();
+           positions.add(lval);
+           if(rval>-1)
+           positions.add(rval);
+
+           conditionDependencies.put(l+" eq "+r,positions);
+          }
+          else {
+              for (int i = 0; i < x.getChildCount(); i++)
+                  queue.add(x.getChild(i));
+          }
+
+
+      }
+
+        return conditionDependencies;
     }
 
     private static List<List<String>> getSingleVariableConditions(Map<String, List<Integer>> conditionDependencies,
@@ -160,7 +196,7 @@ public class QueryRewriter {
         ParseTree returnClause = tree.getChild(2);
 
         List<List<String>> dependentExpressions = getDependentExpressions(forClause);
-        Map<String, List<Integer>> conditionDependencies = getConditionDependencies(whereClause);
+        Map<String, List<Integer>> conditionDependencies = getConditionDependencies(whereClause,dependentExpressions);
         String optimizedQuery = optimizeQuery(dependentExpressions, conditionDependencies, returnClause);
 
         writeOptimizedQuery(optimizedQuery);
