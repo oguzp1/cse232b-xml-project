@@ -33,7 +33,7 @@ public class QueryRewriter {
                     List<String> tempString = new ArrayList<>();
                     tempVar.add(forClause.getChild(i - 2).getText());
                     VarList.add(tempVar);
-                    tempString.add(forClause.getChild(i - 2).getText() + "in" + PostOrder(forClause.getChild(i)));
+                    tempString.add(forClause.getChild(i - 2).getText() + "in" + postOrder(forClause.getChild(i)));
                     dependentExpressions.add(tempString);
                 }
             }
@@ -43,7 +43,7 @@ public class QueryRewriter {
             for (int j = 0; j < dependentExpressions.size(); j++) {
                 if (dependentExpressions.get(j).contains(forClause.getChild(i + 2).getChild(0).getChild(0).getText())) {
                     VarList.get(j).add(forClause.getChild(i).getText());
-                    dependentExpressions.get(j).add(forClause.getChild(i - 2).getText() + "in" + PostOrder(forClause.getChild(i)));
+                    dependentExpressions.get(j).add(forClause.getChild(i - 2).getText() + "in" + postOrder(forClause.getChild(i)));
                 }
             }
 
@@ -51,12 +51,12 @@ public class QueryRewriter {
         return dependentExpressions;
     }
 
-    private static String PostOrder(ParseTree subtree) {
+    private static String postOrder(ParseTree subtree) {
         StringBuilder ans = new StringBuilder();
         if (subtree.getChildCount() == 0)
             ans = new StringBuilder(subtree.getText());
         for (int i = 0; i < subtree.getChildCount(); i++) {
-            ans.append(PostOrder(subtree.getChild(i)));
+            ans.append(postOrder(subtree.getChild(i)));
         }
         return ans.toString();
     }
@@ -122,8 +122,6 @@ public class QueryRewriter {
 
     private static String optimizeQuery(List<List<String>> dependentExpressions,
                                         Map<String, List<Integer>> conditionDependencies,
-                                        ParseTree forClause,
-                                        ParseTree whereClause,
                                         ParseTree returnClause) {
         // TODO: separate for clauses based on dependent expressions,
         //  write where statements based on conditions that depend on 1 set within the for clauses,
@@ -163,8 +161,7 @@ public class QueryRewriter {
 
         List<List<String>> dependentExpressions = getDependentExpressions(forClause);
         Map<String, List<Integer>> conditionDependencies = getConditionDependencies(whereClause);
-        String optimizedQuery = optimizeQuery(dependentExpressions, conditionDependencies,
-                forClause, whereClause, returnClause);
+        String optimizedQuery = optimizeQuery(dependentExpressions, conditionDependencies, returnClause);
 
         writeOptimizedQuery(optimizedQuery);
 
