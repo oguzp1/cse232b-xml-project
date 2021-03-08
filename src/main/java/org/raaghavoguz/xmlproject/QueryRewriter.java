@@ -150,8 +150,32 @@ public class QueryRewriter {
     }
 
     private static List<JoinKey> getJoinOrder(List<String> fwrExpressions, JoinMap joinMap) {
-        // TODO: better than random order?
-        return new ArrayList<>(joinMap.keySet());
+        /*
+         * Assumptions:
+         *  + non-join where clauses are selective, and produce small "tables"
+         *  + non-join where clauses are pushed down on the leaves of the join tree (if they exist)
+         *  + the branches only perform joins, no further filtering
+         * Heuristic:
+         *  + fwr expressions with "where" will produce small tables,
+         *    and any consequent join of these tables will hopefully produce smaller tables
+         *  + we would like to get the most "reduced" joins in terms of size,
+         *    i.e. we should trade join count for better runtime in each join
+         *  + therefore, we start from "less central" fwr expressions with non-join where filters,
+         *    i.e. we first pick filtered expressions that are involved in the minimum number of joins
+         */
+        Map<Integer, Integer> joinCounts = joinMap.getJoinCounts();
+        Map<Integer, List<JoinKey>> associatedJoins = joinMap.getAssociatedJoins();
+
+        List<Integer> expressionOrder = IntStream.range(0, fwrExpressions.size()).boxed()
+                .sorted(Comparator.comparingInt(joinCounts::get))
+                .sorted(Comparator.comparing(i -> !fwrExpressions.get(i).contains("where")))
+                .collect(Collectors.toList());
+
+        // order is important
+        LinkedHashSet<JoinKey> keyOrder = new LinkedHashSet<>();
+        expressionOrder.forEach(i -> keyOrder.addAll(associatedJoins.get(i)));
+
+        return new ArrayList<>(keyOrder);
     }
 
     private static String getJoinClause(List<String> fwrExpressions, JoinMap joinMap) {
@@ -325,6 +349,20 @@ public class QueryRewriter {
             });
 
             return joinCounts;
+        }
+
+        private Map<Integer, List<JoinKey>> getAssociatedJoins() {
+            Map<Integer, List<JoinKey>> associatedJoins = new HashMap<>();
+
+            this.keySet().forEach(key -> {
+                associatedJoins.putIfAbsent(key.getLeftIndex(), new ArrayList<>());
+                associatedJoins.putIfAbsent(key.getRightIndex(), new ArrayList<>());
+
+                associatedJoins.get(key.getLeftIndex()).add(key);
+                associatedJoins.get(key.getRightIndex()).add(key);
+            });
+
+            return associatedJoins;
         }
     }
 
