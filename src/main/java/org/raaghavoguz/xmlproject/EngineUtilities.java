@@ -22,7 +22,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class EngineUtilities {
-    private EngineUtilities() { }
+    private EngineUtilities() {
+    }
 
     public static boolean isTerminal(Node node) {
         short nodeType = node.getNodeType();

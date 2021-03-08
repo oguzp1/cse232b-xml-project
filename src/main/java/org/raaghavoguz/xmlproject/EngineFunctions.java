@@ -10,7 +10,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class EngineFunctions {
-    private EngineFunctions() { }
+    private EngineFunctions() {
+    }
 
     private static List<Node> relativeDir(Node node, ParseTree rp1, ParseTree rp2) {
         return EngineUtilities.unique(
@@ -146,7 +147,7 @@ public class EngineFunctions {
             ParseTree rp1 = tree.getChild(0);
             ParseTree rp2 = tree.getChild(2);
             return relativeDir(node, rp1, rp2);
-        }  else if (tree instanceof XGrammarParser.RPDirRecursiveContext) {
+        } else if (tree instanceof XGrammarParser.RPDirRecursiveContext) {
             ParseTree rp1 = tree.getChild(0);
             ParseTree rp2 = tree.getChild(2);
             return relativeDirRecursive(node, rp1, rp2);
