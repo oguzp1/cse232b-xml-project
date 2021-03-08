@@ -4,6 +4,10 @@ import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.raaghavoguz.xmlproject.grammar.XGrammarParser;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -64,30 +68,28 @@ public class QueryRewriter {
     private static Map<String, List<Integer>> getConditionDependencies(ParseTree whereClause, List<List<String>> dependentExpressions) {
         // TODO: read the chain of EQ and AND conditions, identify the indexes of the sets their checks depend on
 
-        Map<String,List<Integer>> conditionDependencies=new HashMap<>();
+        Map<String, List<Integer>> conditionDependencies = new HashMap<>();
 
-        String[] whereQuery=postOrder(whereClause).split(" ");
-        for(int x=2;x<whereQuery.length;x+=4)
-        {
+        String[] whereQuery = postOrder(whereClause).split("\\s+");
+        for (int x = 2; x < whereQuery.length; x += 4) {
             // index 2 is first eq, and every 4th string is eq
-            String l=whereQuery[x-1];
-            String r=whereQuery[x+1];
-            int lval=-1,rval=-1;
+            String l = whereQuery[x - 1];
+            String r = whereQuery[x + 1];
+            int lval = -1, rval = -1;
 
-            for(int i=0;i<dependentExpressions.size();i++)
-            {
-                if(dependentExpressions.get(i).stream().anyMatch(str->str.contains(l)))
-                    lval=i;
-                if(dependentExpressions.get(i).stream().anyMatch(str->str.contains(r)))
-                    rval=i;
+            for (int i = 0; i < dependentExpressions.size(); i++) {
+                if (dependentExpressions.get(i).stream().anyMatch(str -> str.contains(l)))
+                    lval = i;
+                if (dependentExpressions.get(i).stream().anyMatch(str -> str.contains(r)))
+                    rval = i;
             }
 
-            List<Integer> positions=new ArrayList<>();
+            List<Integer> positions = new ArrayList<>();
             positions.add(lval);
-            if(rval>-1)
+            if (rval > -1)
                 positions.add(rval);
 
-            conditionDependencies.put(l+" eq "+r,positions);
+            conditionDependencies.put(l + " eq " + r, positions);
         }
 
         return conditionDependencies;
@@ -106,10 +108,16 @@ public class QueryRewriter {
         return singleVariableConditions;
     }
 
-    private static Map<String, List<Integer>> getJoinConditions(Map<String, List<Integer>> conditionDependencies) {
-        return conditionDependencies.entrySet().stream()
-                .filter(e -> e.getValue().size() > 1)
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    private static JoinMap getJoinConditions(Map<String, List<Integer>> conditionDependencies) {
+        JoinMap joinMap = new JoinMap();
+
+        conditionDependencies.forEach((key, valueList) -> {
+            JoinKey jk = new JoinKey(valueList.get(0), valueList.get(1));
+            joinMap.putIfAbsent(jk, new ArrayList<>());
+            joinMap.get(jk).add(new JoinCondition(key));
+        });
+
+        return joinMap;
     }
 
     private static List<String> getFWRExpressions(List<List<String>> dependentExpressions,
@@ -119,32 +127,70 @@ public class QueryRewriter {
 
         for (int i = 0; i < dependentExpressions.size(); i++) {
             List<String> deSet = dependentExpressions.get(i);
-            List<String> svConditions = singleVariableConditions.get(i);
+            List<String> condSet = singleVariableConditions.get(i);
 
-            StringBuilder builder = new StringBuilder("for ");
-            builder.append(String.join(", ", deSet));
+            String fwrExpression = "for " + String.join(", ", deSet);
 
-            if (!svConditions.isEmpty())
-                builder.append("where ").append(String.join(" and ", svConditions));
+            if (!condSet.isEmpty())
+                fwrExpression += "where " + String.join(" and ", condSet);
 
-            builder.append("return <tuple> ");
-            builder.append(deSet.stream()
-                    .map(exp -> {
-                        String variable = exp.split("\\s+")[0].substring(1);
-                        return "<" + variable + ">{$" + variable + "}</" + variable + ">";
-                    })
-                    .collect(Collectors.joining(" ")));
-            builder.append("</tuple>");
+            fwrExpression += "return <tuple>{" +
+                    deSet.stream()
+                            .map(exp -> {
+                                String variable = exp.split("\\$")[1].split("\\s+")[0];
+                                return "<" + variable + ">{$" + variable + "}</" + variable + ">";
+                            })
+                            .collect(Collectors.joining(" ")) +
+                    "}</tuple>";
 
-            fwrExpressions.add(builder.toString());
+            fwrExpressions.add(fwrExpression);
         }
 
         return fwrExpressions;
     }
 
-    private static String getJoinClause(List<String> fwrExpressions, Map<String, List<Integer>> joinConditions) {
+    private static List<JoinKey> getJoinOrder(List<String> fwrExpressions, JoinMap joinMap) {
+        // TODO: better than random order?
+        return new ArrayList<>(joinMap.keySet());
+    }
+
+    private static String getJoinClause(List<String> fwrExpressions, JoinMap joinMap) {
         // TODO: construct tree of joins
-        return null;
+        List<JoinKey> joinOrder = getJoinOrder(fwrExpressions, joinMap);
+
+        JoinTracker tracker = new JoinTracker(fwrExpressions);
+
+        for (JoinKey jk : joinOrder) {
+            List<JoinCondition> lrConditions = joinMap.get(jk);
+            List<JoinCondition> rlConditions = joinMap.get(jk.invert());
+
+            List<String> leftVariables = lrConditions.stream()
+                    .map(JoinCondition::getLeftVariable)
+                    .collect(Collectors.toList());
+            List<String> rightVariables = lrConditions.stream()
+                    .map(JoinCondition::getRightVariable)
+                    .collect(Collectors.toList());
+
+            leftVariables.addAll(rlConditions.stream()
+                    .map(JoinCondition::getRightVariable)
+                    .collect(Collectors.toList()));
+            rightVariables.addAll(rlConditions.stream()
+                    .map(JoinCondition::getLeftVariable)
+                    .collect(Collectors.toList()));
+
+            String leftQuery = tracker.getJoinedString(jk.getLeftIndex());
+            String rightQuery = tracker.getJoinedString(jk.getRightIndex());
+
+            String joinedString = "join( " +
+                    leftQuery + ", " +
+                    rightQuery + ", " +
+                    "[" + String.join(", ", leftVariables) + "], " +
+                    "[" + String.join(", ", rightVariables) + "] )";
+
+            tracker.registerJoin(jk, joinedString);
+        }
+
+        return tracker.getJoinedString(0);
     }
 
     private static String optimizeQuery(List<List<String>> dependentExpressions,
@@ -158,24 +204,28 @@ public class QueryRewriter {
 
         int setCount = dependentExpressions.size();
         List<List<String>> singleVariableConditions = getSingleVariableConditions(conditionDependencies, setCount);
-        Map<String, List<Integer>> joinConditions = getJoinConditions(conditionDependencies);
+        JoinMap joinMap = getJoinConditions(conditionDependencies);
 
         List<String> fwrExpressions = getFWRExpressions(dependentExpressions, singleVariableConditions);
 
-        String topJoinClause = getJoinClause(fwrExpressions, joinConditions);
-
-        String fwClause = "for $tuple in " + topJoinClause;
-
+        String forClause = "for $tuple in " + getJoinClause(fwrExpressions, joinMap);
         String modifiedReturn = returnClause.toString().replaceAll("\\$", "$tuple/");
 
-        return fwClause + modifiedReturn;
+        return forClause + modifiedReturn;
     }
 
-    private static void writeOptimizedQuery(String query) {
-        // TODO
+    private static void writeOptimizedQuery(String query, String fileName) throws IOException {
+        String fileNameWithoutExtension = fileName;
+
+        if (fileName.contains("."))
+            fileNameWithoutExtension = fileName.substring(0, fileName.lastIndexOf("."));
+
+        Files.write(Paths.get(fileNameWithoutExtension + "_optimized.txt"),
+                query.getBytes(StandardCharsets.UTF_8));
     }
 
-    public static XGrammarParser getOptimizedQuery(String query) {
+    public static XGrammarParser getOptimizedQuery(String fileName) throws IOException {
+        String query = new String(Files.readAllBytes(Paths.get(fileName)), StandardCharsets.UTF_8);
         XGrammarParser parser = EngineUtilities.parseString(query);
 
         if (!isSimpleQuery(query))
@@ -187,13 +237,136 @@ public class QueryRewriter {
         ParseTree returnClause = tree.getChild(2);
 
         List<List<String>> dependentExpressions = getDependentExpressions(forClause);
-        Map<String, List<Integer>> conditionDependencies = getConditionDependencies(whereClause,dependentExpressions);
+
+        if (dependentExpressions.size() == 1)
+            return parser;
+
+        Map<String, List<Integer>> conditionDependencies = getConditionDependencies(whereClause, dependentExpressions);
         String optimizedQuery = optimizeQuery(dependentExpressions, conditionDependencies, returnClause);
 
-        writeOptimizedQuery(optimizedQuery);
+        writeOptimizedQuery(optimizedQuery, fileName);
 
         return EngineUtilities.parseString(optimizedQuery);
     }
 
+    private static final class JoinKey {
+        private final int leftIndex;
+        private final int rightIndex;
 
+        private JoinKey(int leftIndex, int rightIndex) {
+            this.leftIndex = leftIndex;
+            this.rightIndex = rightIndex;
+        }
+
+        private int getLeftIndex() {
+            return leftIndex;
+        }
+
+        private int getRightIndex() {
+            return rightIndex;
+        }
+
+        private JoinKey invert() {
+            return new JoinKey(this.rightIndex, this.leftIndex);
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            return obj instanceof JoinKey &&
+                    this.leftIndex == ((JoinKey) obj).leftIndex &&
+                    this.rightIndex == ((JoinKey) obj).rightIndex;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(this.leftIndex, this.rightIndex);
+        }
+    }
+
+    private static final class JoinCondition {
+        private final String leftVariable;
+        private final String rightVariable;
+
+        private JoinCondition(String key) {
+            String[] variables = key.split("\\$");
+
+            this.leftVariable = variables[1].split("\\s+")[0];
+            this.rightVariable = variables[2].split("\\s+")[0];
+        }
+
+        private String getLeftVariable() {
+            return leftVariable;
+        }
+
+        private String getRightVariable() {
+            return rightVariable;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(this.leftVariable, this.rightVariable);
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            return obj instanceof JoinCondition &&
+                    this.leftVariable.equals(((JoinCondition) obj).leftVariable) &&
+                    this.rightVariable.equals(((JoinCondition) obj).rightVariable);
+        }
+    }
+
+    private static final class JoinMap extends HashMap<JoinKey, List<JoinCondition>> {
+        private Map<Integer, Integer> getJoinCounts() {
+            Map<Integer, Integer> joinCounts = new HashMap<>();
+
+            this.keySet().forEach(key -> {
+                int lastCount = joinCounts.getOrDefault(key.getLeftIndex(), 0);
+                joinCounts.put(key.getLeftIndex(), lastCount + 1);
+            });
+
+            return joinCounts;
+        }
+    }
+
+    private static final class JoinTracker {
+        private final Map<Integer, String> joinedMap;
+        private final List<Set<Integer>> joinList;
+
+        private JoinTracker(List<String> stringList) {
+            this.joinedMap = IntStream.range(0, stringList.size()).boxed()
+                    .collect(Collectors.toMap(i -> i, stringList::get));
+
+            this.joinList = IntStream.range(0, stringList.size())
+                    .mapToObj(i -> {
+                        Set<Integer> newSet = new HashSet<>();
+                        newSet.add(i);
+                        return newSet;
+                    })
+                    .collect(Collectors.toList());
+        }
+
+        private int findIndexInJoined(int index) {
+            for (int i = 0; i < this.joinList.size(); i++) {
+                if (this.joinList.get(i).contains(index))
+                    return i;
+            }
+            throw new IllegalStateException("Input index should always be within one of the sets.");
+        }
+
+        private void registerJoin(JoinKey joinKey, String joinedString) {
+            int leftSetIndex = findIndexInJoined(joinKey.getLeftIndex());
+            int rightSetIndex = findIndexInJoined(joinKey.getRightIndex());
+
+            Set<Integer> leftSet = joinList.get(leftSetIndex);
+
+            leftSet.addAll(joinList.get(rightSetIndex));
+            joinList.remove(rightSetIndex);
+
+            leftSet.forEach(i -> this.joinedMap.put(i, joinedString));
+        }
+
+        private String getJoinedString(int index) {
+            return this.joinedMap.get(index);
+        }
+    }
 }

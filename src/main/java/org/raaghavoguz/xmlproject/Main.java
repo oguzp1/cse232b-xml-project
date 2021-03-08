@@ -11,8 +11,6 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public class Main {
     public static String getResults(String fileName) {
@@ -22,8 +20,7 @@ public class Main {
                     .newDocumentBuilder()
                     .newDocument();
 
-            String query = new String(Files.readAllBytes(Paths.get(fileName)), StandardCharsets.UTF_8);
-            XGrammarParser parser = QueryRewriter.getOptimizedQuery(query);
+            XGrammarParser parser = QueryRewriter.getOptimizedQuery(fileName);
 
             // Should be only one element if xquery
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
