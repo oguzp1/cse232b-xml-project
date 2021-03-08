@@ -24,15 +24,19 @@ public class QueryRewriter {
     private static List<Set<String>> getDependentExpressions(ParseTree forClause) {
         // TODO: start with setting ap path variables as 1-element sets,
         //  build upon the sets by appending variables that depend on previous sets
+        List<Set<String>> varsets=new ArrayList<>();
         List<Set<String>> dependentExpressions=new ArrayList<>();
         for(int i=0;i<forClause.getChildCount();i++)
         {
             if(forClause.getChild(i) instanceof XGrammarParser.XqContext)
             {
                 if(forClause.getChild(i).getChild(0) instanceof XGrammarParser.XQAbsoluteContext){
-                    Set<String> hash_Set = new HashSet<String>();
-                    hash_Set.add(forClause.getChild(i-2).toString());
-                    dependentExpressions.add(hash_Set);
+                    Set<String> hash_SetVar = new HashSet<String>();
+                    Set<String> StringSet = new HashSet<String>();
+                    hash_SetVar.add(forClause.getChild(i-2).getText());
+                    varsets.add(hash_SetVar);
+                    StringSet.add(forClause.getChild(i-2).getText()+"in"+PostOrder(forClause.getChild(i)));
+                    dependentExpressions.add(StringSet);
                 }
             }
         }
@@ -41,9 +45,10 @@ public class QueryRewriter {
 
             for(int j=0;j<dependentExpressions.size();j++)
             {
-                if(dependentExpressions.get(j).contains(forClause.getChild(i+2).getChild(0).getChild(0).toString()))
+                if(dependentExpressions.get(j).contains(forClause.getChild(i+2).getChild(0).getChild(0).getText()))
                 {
-                        dependentExpressions.get(j).add(forClause.getChild(i).toString());
+                        varsets.get(j).add(forClause.getChild(i).getText());
+                        dependentExpressions.get(j).add(forClause.getChild(i-2).getText()+"in"+PostOrder(forClause.getChild(i)));
                 }
             }
 
@@ -51,8 +56,20 @@ public class QueryRewriter {
         return dependentExpressions;
     }
 
+    private static String PostOrder(ParseTree subtree) {
+        String ans="";
+        if(subtree.getChildCount()==0)
+            ans=subtree.getText();
+        for(int i=0;i<subtree.getChildCount();i++)
+        {
+            ans+=PostOrder(subtree.getChild(i));
+        }
+        return ans;
+    }
+
     private static List<List<Integer>> getConditionDependencies(ParseTree whereClause) {
         // TODO: read the chain of EQ and AND conditions, identify the indexes of the sets their checks depend on
+
         return new ArrayList<>();
     }
 
