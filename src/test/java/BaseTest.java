@@ -1,4 +1,5 @@
 import org.raaghavoguz.xmlproject.Main;
+import org.raaghavoguz.xmlproject.rewriter.QueryRewriter;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -27,11 +28,9 @@ public class BaseTest {
     }
 
     void testRewrite(String testcaseName) {
-        Main.getResults(TEST_PATH.resolve(testcaseName + "Query.txt").toString());
         try {
-            String results = new String(Files.readAllBytes(TEST_PATH.resolve(testcaseName + "OptimizedQuery.txt")),
-                    StandardCharsets.UTF_8);
-            testFileContentsEqual(results, testcaseName + "Query_optimized.txt");
+            String results = QueryRewriter.getOptimizedQuery(TEST_PATH.resolve(testcaseName + "Query.txt").toString());
+            testFileContentsEqual(results, testcaseName + "OptimizedQuery.txt");
         } catch (IOException e) {
             e.printStackTrace();
             assert false;

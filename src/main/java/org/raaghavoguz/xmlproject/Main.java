@@ -21,7 +21,8 @@ public class Main {
                     .newDocumentBuilder()
                     .newDocument();
 
-            XGrammarParser parser = QueryRewriter.getOptimizedQuery(fileName);
+            String query = QueryRewriter.getOptimizedQuery(fileName);
+            XGrammarParser parser = EngineUtilities.parseString(query);
 
             // Should be only one element if xquery
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();

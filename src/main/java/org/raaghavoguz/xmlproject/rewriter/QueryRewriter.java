@@ -12,6 +12,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -24,11 +25,28 @@ public class QueryRewriter {
         XSimpleGrammarLexer lexer = new XSimpleGrammarLexer(cs);
         CommonTokenStream token = new CommonTokenStream(lexer);
         XSimpleGrammarParser parser = new XSimpleGrammarParser(token);
+
+        AtomicBoolean parsed = new AtomicBoolean(true);
+        BaseErrorListener listener = new BaseErrorListener() {
+            @Override
+            public void syntaxError(Recognizer<?, ?> recognizer,
+                                    Object offendingSymbol,
+                                    int line,
+                                    int charPositionInLine,
+                                    String msg,
+                                    RecognitionException e) {
+                parsed.set(false);
+            }
+        };
+
         lexer.removeErrorListeners();
         parser.removeErrorListeners();
-        parser.xq();
-        return parser.isMatchedEOF();
+        lexer.addErrorListener(listener);
+        parser.addErrorListener(listener);
 
+        parser.xq();
+
+        return parsed.get();
     }
 
     private static ClosureList getTransitiveClosures(ParseTree forClause) {
@@ -238,13 +256,13 @@ public class QueryRewriter {
                 query.getBytes(StandardCharsets.UTF_8));
     }
 
-    public static XGrammarParser getOptimizedQuery(String fileName) throws IOException {
+    public static String getOptimizedQuery(String fileName) throws IOException {
         String query = new String(Files.readAllBytes(Paths.get(fileName)), StandardCharsets.UTF_8);
-        XGrammarParser parser = EngineUtilities.parseString(query);
 
         if (!isSimpleQuery(query))
-            return parser;
+            return query;
 
+        XGrammarParser parser = EngineUtilities.parseString(query);
         ParseTree tree = parser.xq();
         ParseTree forClause = tree.getChild(0);
         ParseTree whereClause = tree.getChild(1);
@@ -253,7 +271,7 @@ public class QueryRewriter {
         ClosureList transitiveClosures = getTransitiveClosures(forClause);
 
         if (transitiveClosures.size() == 1)
-            return parser;
+            return query;
 
         List<List<String>> dependentExpressions = getDependentExpressions(transitiveClosures, forClause);
 
@@ -268,6 +286,6 @@ public class QueryRewriter {
 
         writeOptimizedQuery(optimizedQuery, fileName);
 
-        return EngineUtilities.parseString(optimizedQuery);
+        return optimizedQuery;
     }
 }
