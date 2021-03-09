@@ -66,7 +66,7 @@ returnClause : 'return' xq ;
 
 joinCond : '[' NAME (',' NAME)* ']' ;
 
-NAME           : [a-zA-Z0-9_]+ ;
+NAME           : ('-' | [a-zA-Z0-9_])+ ;
 FILENAME       : NAME '.' NAME ;
-STRINGCONSTANT : ["](',' | '!' | '.' | ':' | '?' | [ a-zA-Z0-9])*["] ;
+STRINGCONSTANT : ["](',' | '!' | '.' | ':' | '?' | '-' | [ a-zA-Z0-9])*["] ;
 VAR            : [$][a-zA-Z0-9_]+ ;

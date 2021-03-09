@@ -1,9 +1,11 @@
 package org.raaghavoguz.xmlproject.rewriter;
 
-import org.antlr.v4.runtime.RecognitionException;
+import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.raaghavoguz.xmlproject.EngineUtilities;
 import org.raaghavoguz.xmlproject.grammar.XGrammarParser;
+import org.raaghavoguz.xmlproject.grammar.XSimpleGrammarLexer;
+import org.raaghavoguz.xmlproject.grammar.XSimpleGrammarParser;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -18,12 +20,15 @@ public class QueryRewriter {
     }
 
     private static boolean isSimpleQuery(String query) {
-        try {
-            EngineUtilities.parseSimpleString(query).xq();
-            return true;
-        } catch (RecognitionException e) {
-            return false;
-        }
+        CharStream cs = CharStreams.fromString(query);
+        XSimpleGrammarLexer lexer = new XSimpleGrammarLexer(cs);
+        CommonTokenStream token = new CommonTokenStream(lexer);
+        XSimpleGrammarParser parser = new XSimpleGrammarParser(token);
+        lexer.removeErrorListeners();
+        parser.removeErrorListeners();
+        parser.xq();
+        return parser.isMatchedEOF();
+
     }
 
     private static ClosureList getTransitiveClosures(ParseTree forClause) {
@@ -69,11 +74,12 @@ public class QueryRewriter {
     private static Map<String, List<Integer>> getConditionDependencies(ClosureList transitiveClosures,
                                                                        ParseTree whereClause) {
         Map<String, List<Integer>> conditionDependencies = new HashMap<>();
+        String conditions = postOrder(whereClause.getChild(1));
 
-        for (String cond : whereClause.getChild(1).getText().split("\\s+and\\s+")) {
+        for (String cond : conditions.split(" and ")) {
             List<Integer> indexes = new ArrayList<>();
 
-            for (String part : cond.split("\\s+(eq | =)\\s+")) {
+            for (String part : cond.split(" (eq|=) ")) {
                 if (part.startsWith("$"))
                     indexes.add(transitiveClosures.getMatchingSetIndex(part.substring(1)));
             }
@@ -83,6 +89,21 @@ public class QueryRewriter {
 
         return conditionDependencies;
     }
+
+    private static String postOrder(ParseTree subtree) {
+        return postOrder(subtree, " ");
+    }
+
+    private static String postOrder(ParseTree subtree, String delimiter) {
+        if (subtree.getChildCount() == 0)
+            return subtree.getText();
+
+        return IntStream.range(0, subtree.getChildCount())
+                .mapToObj(subtree::getChild)
+                .map(c -> postOrder(c, delimiter))
+                .collect(Collectors.joining(delimiter));
+    }
+
 
     private static Map<Integer, List<String>> getSingleVariableConditions(Map<String, List<Integer>> conditionDependencies) {
         Map<Integer, List<String>> singleVariableConditions = new HashMap<>();
@@ -118,21 +139,21 @@ public class QueryRewriter {
 
         for (int i = 0; i < dependentExpressions.size(); i++) {
             List<String> deSet = dependentExpressions.get(i);
-            List<String> condSet = singleVariableConditions.get(i);
+            Optional<List<String>> condSet = Optional.ofNullable(singleVariableConditions.get(i));
 
-            String fwrExpression = "for " + String.join(", ", deSet);
+            String fwrExpression = "for " + String.join(", ", deSet) + " ";
 
-            if (!condSet.isEmpty())
-                fwrExpression += "where " + String.join(" and ", condSet);
+            if (condSet.isPresent())
+                fwrExpression += "where " + String.join(" and ", condSet.get()) + " ";
 
-            fwrExpression += "return <tuple>{" +
+            fwrExpression += "return <tuple>{ " +
                     deSet.stream()
                             .map(exp -> {
                                 String variable = exp.split("\\$")[1].split("\\s+")[0];
                                 return "<" + variable + ">{$" + variable + "}</" + variable + ">";
                             })
-                            .collect(Collectors.joining(" ")) +
-                    "}</tuple>";
+                            .collect(Collectors.joining(", ")) +
+                    " }</tuple>";
 
             fwrExpressions.add(fwrExpression);
         }
@@ -175,8 +196,8 @@ public class QueryRewriter {
         JoinTracker tracker = new JoinTracker(fwrExpressions);
 
         for (JoinKey jk : joinOrder) {
-            List<JoinCondition> lrConditions = joinMap.get(jk);
-            List<JoinCondition> rlConditions = joinMap.get(jk.invert());
+            List<JoinCondition> lrConditions = joinMap.getOrDefault(jk, Collections.emptyList());
+            List<JoinCondition> rlConditions = joinMap.getOrDefault(jk.invert(), Collections.emptyList());
 
             List<String> leftVariables = lrConditions.stream()
                     .map(JoinCondition::getLeftVariable)
@@ -205,16 +226,6 @@ public class QueryRewriter {
         }
 
         return tracker.getJoinedString(0);
-    }
-
-    private static String optimizeQuery(List<String> fwrExpressions,
-                                        JoinMap joinMap,
-                                        ParseTree returnClause) {
-
-        String forClause = "for $tuple in " + getJoinClause(fwrExpressions, joinMap);
-        String modifiedReturn = returnClause.getText().replaceAll("\\$", "$tuple/");
-
-        return forClause + " " + modifiedReturn;
     }
 
     private static void writeOptimizedQuery(String query, String fileName) throws IOException {
@@ -252,7 +263,8 @@ public class QueryRewriter {
 
         List<String> fwrExpressions = getFWRExpressions(dependentExpressions, singleVariableConditions);
 
-        String optimizedQuery = optimizeQuery(fwrExpressions, joinMap, returnClause);
+        String optimizedQuery = "for $tuple in " + getJoinClause(fwrExpressions, joinMap) + " " +
+                "return " + postOrder(returnClause.getChild(1), "").replaceAll("\\$([a-zA-Z0-9_-]+)", "\\$tuple/$1/*");
 
         writeOptimizedQuery(optimizedQuery, fileName);
 

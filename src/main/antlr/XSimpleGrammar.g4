@@ -18,7 +18,7 @@ sep : '/' | '//' ;
 
 ret : VAR
     | ret ',' ret
-    | '<' NAME '>' ret '<' '/' NAME '>'
+    | '<' NAME '>' '{' ret '}' '<' '/' NAME '>'
     | path
     ;
 
@@ -27,7 +27,7 @@ cond : (VAR | STRINGCONSTANT) 'eq' (VAR | STRINGCONSTANT)
      | cond 'and' cond
      ;
 
-NAME           : [a-zA-Z0-9_]+ ;
+NAME           : ('-' | [a-zA-Z0-9_])+ ;
 FILENAME       : NAME '.' NAME ;
-STRINGCONSTANT : ["](',' | '!' | '.' | ':' | '?' | [ a-zA-Z0-9])*["] ;
+STRINGCONSTANT : ["](',' | '!' | '.' | ':' | '?' | '-' | [ a-zA-Z0-9])*["] ;
 VAR            : [$][a-zA-Z0-9_]+ ;

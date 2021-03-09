@@ -19,7 +19,7 @@ public class XSimpleGrammarParser extends Parser {
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
 		T__9=10, T__10=11, T__11=12, T__12=13, T__13=14, T__14=15, T__15=16, T__16=17, 
-		WS=18, NAME=19, FILENAME=20, STRINGCONSTANT=21, VAR=22;
+		T__17=18, T__18=19, WS=20, NAME=21, FILENAME=22, STRINGCONSTANT=23, VAR=24;
 	public static final int
 		RULE_xq = 0, RULE_forClause = 1, RULE_whereClause = 2, RULE_returnClause = 3, 
 		RULE_path = 4, RULE_sep = 5, RULE_ret = 6, RULE_cond = 7;
@@ -34,16 +34,16 @@ public class XSimpleGrammarParser extends Parser {
 	private static String[] makeLiteralNames() {
 		return new String[] {
 			null, "'for'", "'in'", "','", "'where'", "'return'", "'doc'", "'('", 
-			"'\"'", "')'", "'text'", "'/'", "'//'", "'<'", "'>'", "'eq'", "'='", 
-			"'and'"
+			"'\"'", "')'", "'text'", "'/'", "'//'", "'<'", "'>'", "'{'", "'}'", "'eq'", 
+			"'='", "'and'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
 			null, null, null, null, null, null, null, null, null, null, null, null, 
-			null, null, null, null, null, null, "WS", "NAME", "FILENAME", "STRINGCONSTANT", 
-			"VAR"
+			null, null, null, null, null, null, null, null, "WS", "NAME", "FILENAME", 
+			"STRINGCONSTANT", "VAR"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -587,7 +587,7 @@ public class XSimpleGrammarParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(97);
+			setState(99);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,6,_ctx) ) {
 			case 1:
@@ -605,26 +605,30 @@ public class XSimpleGrammarParser extends Parser {
 				setState(89);
 				match(T__13);
 				setState(90);
-				ret(0);
+				match(T__14);
 				setState(91);
-				match(T__12);
+				ret(0);
 				setState(92);
-				match(T__10);
+				match(T__15);
 				setState(93);
-				match(NAME);
+				match(T__12);
 				setState(94);
+				match(T__10);
+				setState(95);
+				match(NAME);
+				setState(96);
 				match(T__13);
 				}
 				break;
 			case 3:
 				{
-				setState(96);
+				setState(98);
 				path();
 				}
 				break;
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(104);
+			setState(106);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,7,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
@@ -635,16 +639,16 @@ public class XSimpleGrammarParser extends Parser {
 					{
 					_localctx = new RetContext(_parentctx, _parentState);
 					pushNewRecursionContext(_localctx, _startState, RULE_ret);
-					setState(99);
-					if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
-					setState(100);
-					match(T__2);
 					setState(101);
+					if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
+					setState(102);
+					match(T__2);
+					setState(103);
 					ret(4);
 					}
 					} 
 				}
-				setState(106);
+				setState(108);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,7,_ctx);
 			}
@@ -711,12 +715,12 @@ public class XSimpleGrammarParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(114);
+			setState(116);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,8,_ctx) ) {
 			case 1:
 				{
-				setState(108);
+				setState(110);
 				_la = _input.LA(1);
 				if ( !(_la==STRINGCONSTANT || _la==VAR) ) {
 				_errHandler.recoverInline(this);
@@ -726,9 +730,9 @@ public class XSimpleGrammarParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(109);
-				match(T__14);
-				setState(110);
+				setState(111);
+				match(T__16);
+				setState(112);
 				_la = _input.LA(1);
 				if ( !(_la==STRINGCONSTANT || _la==VAR) ) {
 				_errHandler.recoverInline(this);
@@ -742,7 +746,7 @@ public class XSimpleGrammarParser extends Parser {
 				break;
 			case 2:
 				{
-				setState(111);
+				setState(113);
 				_la = _input.LA(1);
 				if ( !(_la==STRINGCONSTANT || _la==VAR) ) {
 				_errHandler.recoverInline(this);
@@ -752,9 +756,9 @@ public class XSimpleGrammarParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(112);
-				match(T__15);
-				setState(113);
+				setState(114);
+				match(T__17);
+				setState(115);
 				_la = _input.LA(1);
 				if ( !(_la==STRINGCONSTANT || _la==VAR) ) {
 				_errHandler.recoverInline(this);
@@ -768,7 +772,7 @@ public class XSimpleGrammarParser extends Parser {
 				break;
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(121);
+			setState(123);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,9,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
@@ -779,16 +783,16 @@ public class XSimpleGrammarParser extends Parser {
 					{
 					_localctx = new CondContext(_parentctx, _parentState);
 					pushNewRecursionContext(_localctx, _startState, RULE_cond);
-					setState(116);
-					if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
-					setState(117);
-					match(T__16);
 					setState(118);
+					if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
+					setState(119);
+					match(T__18);
+					setState(120);
 					cond(2);
 					}
 					} 
 				}
-				setState(123);
+				setState(125);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,9,_ctx);
 			}
@@ -830,37 +834,37 @@ public class XSimpleGrammarParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\30\177\4\2\t\2\4"+
-		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\3\2\3\2\3\2\3\2"+
-		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\7\3\37\n\3\f\3\16\3\"\13\3\3\4\3\4\3"+
-		"\4\3\5\3\5\3\5\3\6\3\6\3\6\3\6\3\6\3\6\3\6\5\6\61\n\6\3\6\3\6\3\6\7\6"+
-		"\66\n\6\f\6\16\69\13\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\5\6E\n"+
-		"\6\3\6\3\6\3\6\7\6J\n\6\f\6\16\6M\13\6\3\6\3\6\3\6\3\6\3\6\5\6T\n\6\3"+
-		"\7\3\7\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\5\bd\n\b\3\b\3"+
-		"\b\3\b\7\bi\n\b\f\b\16\bl\13\b\3\t\3\t\3\t\3\t\3\t\3\t\3\t\5\tu\n\t\3"+
-		"\t\3\t\3\t\7\tz\n\t\f\t\16\t}\13\t\3\t\2\4\16\20\n\2\4\6\b\n\f\16\20\2"+
-		"\4\3\2\r\16\3\2\27\30\2\u0081\2\22\3\2\2\2\4\26\3\2\2\2\6#\3\2\2\2\b&"+
-		"\3\2\2\2\nS\3\2\2\2\fU\3\2\2\2\16c\3\2\2\2\20t\3\2\2\2\22\23\5\4\3\2\23"+
-		"\24\5\6\4\2\24\25\5\b\5\2\25\3\3\2\2\2\26\27\7\3\2\2\27\30\7\30\2\2\30"+
-		"\31\7\4\2\2\31 \5\n\6\2\32\33\7\5\2\2\33\34\7\30\2\2\34\35\7\4\2\2\35"+
-		"\37\5\n\6\2\36\32\3\2\2\2\37\"\3\2\2\2 \36\3\2\2\2 !\3\2\2\2!\5\3\2\2"+
-		"\2\" \3\2\2\2#$\7\6\2\2$%\5\20\t\2%\7\3\2\2\2&\'\7\7\2\2\'(\5\16\b\2("+
-		"\t\3\2\2\2)*\7\b\2\2*+\7\t\2\2+,\7\n\2\2,-\7\26\2\2-.\7\n\2\2.\61\7\13"+
-		"\2\2/\61\7\30\2\2\60)\3\2\2\2\60/\3\2\2\2\61\67\3\2\2\2\62\63\5\f\7\2"+
-		"\63\64\7\25\2\2\64\66\3\2\2\2\65\62\3\2\2\2\669\3\2\2\2\67\65\3\2\2\2"+
-		"\678\3\2\2\28:\3\2\2\29\67\3\2\2\2:;\5\f\7\2;<\7\25\2\2<T\3\2\2\2=>\7"+
-		"\b\2\2>?\7\t\2\2?@\7\n\2\2@A\7\26\2\2AB\7\n\2\2BE\7\13\2\2CE\7\30\2\2"+
-		"D=\3\2\2\2DC\3\2\2\2EK\3\2\2\2FG\5\f\7\2GH\7\25\2\2HJ\3\2\2\2IF\3\2\2"+
-		"\2JM\3\2\2\2KI\3\2\2\2KL\3\2\2\2LN\3\2\2\2MK\3\2\2\2NO\5\f\7\2OP\7\f\2"+
-		"\2PQ\7\t\2\2QR\7\13\2\2RT\3\2\2\2S\60\3\2\2\2SD\3\2\2\2T\13\3\2\2\2UV"+
-		"\t\2\2\2V\r\3\2\2\2WX\b\b\1\2Xd\7\30\2\2YZ\7\17\2\2Z[\7\25\2\2[\\\7\20"+
-		"\2\2\\]\5\16\b\2]^\7\17\2\2^_\7\r\2\2_`\7\25\2\2`a\7\20\2\2ad\3\2\2\2"+
-		"bd\5\n\6\2cW\3\2\2\2cY\3\2\2\2cb\3\2\2\2dj\3\2\2\2ef\f\5\2\2fg\7\5\2\2"+
-		"gi\5\16\b\6he\3\2\2\2il\3\2\2\2jh\3\2\2\2jk\3\2\2\2k\17\3\2\2\2lj\3\2"+
-		"\2\2mn\b\t\1\2no\t\3\2\2op\7\21\2\2pu\t\3\2\2qr\t\3\2\2rs\7\22\2\2su\t"+
-		"\3\2\2tm\3\2\2\2tq\3\2\2\2u{\3\2\2\2vw\f\3\2\2wx\7\23\2\2xz\5\20\t\4y"+
-		"v\3\2\2\2z}\3\2\2\2{y\3\2\2\2{|\3\2\2\2|\21\3\2\2\2}{\3\2\2\2\f \60\67"+
-		"DKScjt{";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\32\u0081\4\2\t\2"+
+		"\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\3\2\3\2\3\2\3"+
+		"\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\7\3\37\n\3\f\3\16\3\"\13\3\3\4\3\4"+
+		"\3\4\3\5\3\5\3\5\3\6\3\6\3\6\3\6\3\6\3\6\3\6\5\6\61\n\6\3\6\3\6\3\6\7"+
+		"\6\66\n\6\f\6\16\69\13\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\5\6E"+
+		"\n\6\3\6\3\6\3\6\7\6J\n\6\f\6\16\6M\13\6\3\6\3\6\3\6\3\6\3\6\5\6T\n\6"+
+		"\3\7\3\7\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\5\bf"+
+		"\n\b\3\b\3\b\3\b\7\bk\n\b\f\b\16\bn\13\b\3\t\3\t\3\t\3\t\3\t\3\t\3\t\5"+
+		"\tw\n\t\3\t\3\t\3\t\7\t|\n\t\f\t\16\t\177\13\t\3\t\2\4\16\20\n\2\4\6\b"+
+		"\n\f\16\20\2\4\3\2\r\16\3\2\31\32\2\u0083\2\22\3\2\2\2\4\26\3\2\2\2\6"+
+		"#\3\2\2\2\b&\3\2\2\2\nS\3\2\2\2\fU\3\2\2\2\16e\3\2\2\2\20v\3\2\2\2\22"+
+		"\23\5\4\3\2\23\24\5\6\4\2\24\25\5\b\5\2\25\3\3\2\2\2\26\27\7\3\2\2\27"+
+		"\30\7\32\2\2\30\31\7\4\2\2\31 \5\n\6\2\32\33\7\5\2\2\33\34\7\32\2\2\34"+
+		"\35\7\4\2\2\35\37\5\n\6\2\36\32\3\2\2\2\37\"\3\2\2\2 \36\3\2\2\2 !\3\2"+
+		"\2\2!\5\3\2\2\2\" \3\2\2\2#$\7\6\2\2$%\5\20\t\2%\7\3\2\2\2&\'\7\7\2\2"+
+		"\'(\5\16\b\2(\t\3\2\2\2)*\7\b\2\2*+\7\t\2\2+,\7\n\2\2,-\7\30\2\2-.\7\n"+
+		"\2\2.\61\7\13\2\2/\61\7\32\2\2\60)\3\2\2\2\60/\3\2\2\2\61\67\3\2\2\2\62"+
+		"\63\5\f\7\2\63\64\7\27\2\2\64\66\3\2\2\2\65\62\3\2\2\2\669\3\2\2\2\67"+
+		"\65\3\2\2\2\678\3\2\2\28:\3\2\2\29\67\3\2\2\2:;\5\f\7\2;<\7\27\2\2<T\3"+
+		"\2\2\2=>\7\b\2\2>?\7\t\2\2?@\7\n\2\2@A\7\30\2\2AB\7\n\2\2BE\7\13\2\2C"+
+		"E\7\32\2\2D=\3\2\2\2DC\3\2\2\2EK\3\2\2\2FG\5\f\7\2GH\7\27\2\2HJ\3\2\2"+
+		"\2IF\3\2\2\2JM\3\2\2\2KI\3\2\2\2KL\3\2\2\2LN\3\2\2\2MK\3\2\2\2NO\5\f\7"+
+		"\2OP\7\f\2\2PQ\7\t\2\2QR\7\13\2\2RT\3\2\2\2S\60\3\2\2\2SD\3\2\2\2T\13"+
+		"\3\2\2\2UV\t\2\2\2V\r\3\2\2\2WX\b\b\1\2Xf\7\32\2\2YZ\7\17\2\2Z[\7\27\2"+
+		"\2[\\\7\20\2\2\\]\7\21\2\2]^\5\16\b\2^_\7\22\2\2_`\7\17\2\2`a\7\r\2\2"+
+		"ab\7\27\2\2bc\7\20\2\2cf\3\2\2\2df\5\n\6\2eW\3\2\2\2eY\3\2\2\2ed\3\2\2"+
+		"\2fl\3\2\2\2gh\f\5\2\2hi\7\5\2\2ik\5\16\b\6jg\3\2\2\2kn\3\2\2\2lj\3\2"+
+		"\2\2lm\3\2\2\2m\17\3\2\2\2nl\3\2\2\2op\b\t\1\2pq\t\3\2\2qr\7\23\2\2rw"+
+		"\t\3\2\2st\t\3\2\2tu\7\24\2\2uw\t\3\2\2vo\3\2\2\2vs\3\2\2\2w}\3\2\2\2"+
+		"xy\f\3\2\2yz\7\25\2\2z|\5\20\t\4{x\3\2\2\2|\177\3\2\2\2}{\3\2\2\2}~\3"+
+		"\2\2\2~\21\3\2\2\2\177}\3\2\2\2\f \60\67DKSelv}";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

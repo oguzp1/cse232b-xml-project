@@ -10,8 +10,10 @@ class JoinMap extends HashMap<JoinKey, List<JoinCondition>> {
         Map<Integer, Integer> joinCounts = new HashMap<>();
 
         this.keySet().forEach(key -> {
-            int lastCount = joinCounts.getOrDefault(key.getLeftIndex(), 0);
-            joinCounts.put(key.getLeftIndex(), lastCount + 1);
+            int lastCountLeft = joinCounts.getOrDefault(key.getLeftIndex(), 0);
+            int lastCountRight = joinCounts.getOrDefault(key.getRightIndex(), 0);
+            joinCounts.put(key.getLeftIndex(), lastCountLeft + 1);
+            joinCounts.put(key.getRightIndex(), lastCountRight + 1);
         });
 
         return joinCounts;

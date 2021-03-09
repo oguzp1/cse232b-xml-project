@@ -149,13 +149,6 @@ public class EngineUtilities {
         return new XGrammarParser(token);
     }
 
-    public static XSimpleGrammarParser parseSimpleString(String s) {
-        CharStream cs = CharStreams.fromString(s);
-        XSimpleGrammarLexer lexer = new XSimpleGrammarLexer(cs);
-        CommonTokenStream token = new CommonTokenStream(lexer);
-        return new XSimpleGrammarParser(token);
-    }
-
     public static Element makeElement(Document document, String tagName, List<Node> children) {
         Element element = document.createElement(tagName);
         children.stream()
