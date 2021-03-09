@@ -12,6 +12,11 @@ public class TestMS3Examples extends BaseTest {
     }
 
     @Test
+    public void testImplicitJoin3() {
+        testRewrite("MS3ImplicitJoin3");
+    }
+
+    @Test
     public void testExplicitJoin1() {
         testQuery("MS3ExplicitJoin1");
     }

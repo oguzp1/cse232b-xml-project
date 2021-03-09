@@ -98,6 +98,68 @@ public class EngineFunctions {
         return contextList;
     }
 
+    private static List<String> getJoinNames(ParseTree condGenerator) {
+        return IntStream.range(1, condGenerator.getChildCount())
+                .filter(i -> i % 2 == 1)
+                .mapToObj(condGenerator::getChild)
+                .map(ParseTree::getText)
+                .collect(Collectors.toList());
+    }
+
+    private static List<Node> cartesianProduct(Document document, List<Node> tuples1, List<Node> tuples2) {
+        List<Node> jointNodes = new ArrayList<>();
+
+        for (Node tuple1 : tuples1) {
+            for (Node tuple2 : tuples2) {
+                List<Node> allChildren = EngineUtilities.children(tuple1);
+                allChildren.addAll(EngineUtilities.children(tuple2));
+
+                jointNodes.add(EngineUtilities.makeElement(document, "tuple", allChildren));
+            }
+        }
+
+        return jointNodes;
+    }
+
+    private static List<Node> join(Document document, List<Node> tuples1, List<Node> tuples2,
+                                   List<String> nameList1, List<String> nameList2) {
+        Map<String, Map<String, Node>> map = new HashMap<>();
+
+        for (Node tuple : tuples1) {
+            EngineUtilities.children(tuple).forEach(c -> {
+                String name = c.getNodeName();
+                if (nameList1.contains(name)) {
+                    String correspondingAttrib = nameList2.get(nameList1.indexOf(name));
+                    map.putIfAbsent(correspondingAttrib, new HashMap<>());
+                    map.get(correspondingAttrib).put(c.getNodeValue(), tuple);
+                }
+            });
+        }
+
+        List<Node> jointNodes = new ArrayList<>();
+
+        for (Node tuple : tuples2) {
+            List<Node> children = EngineUtilities.children(tuple);
+            List<Node> filteredChildren = children.stream()
+                    .filter(c -> nameList2.contains(c.getNodeName()))
+                    .collect(Collectors.toList());
+
+            if (!filteredChildren.isEmpty() && filteredChildren.stream()
+                    .allMatch(c -> map.get(c.getNodeName()).containsKey(c.getNodeValue()))) {
+                Node nodeToMerge = filteredChildren.stream()
+                        .map(c -> map.get(c.getNodeName()).get(c.getNodeValue()))
+                        .findFirst()
+                        .get();
+
+                List<Node> allChildren = new ArrayList<>(EngineUtilities.children(nodeToMerge));
+                allChildren.addAll(children);
+                jointNodes.add(EngineUtilities.makeElement(document, "tuple", allChildren));
+            }
+        }
+
+        return jointNodes;
+    }
+
     public static List<Node> absolutePath(ParseTree tree) {
         String fileName = tree.getChild(3).getText();
         try {
@@ -275,52 +337,14 @@ public class EngineFunctions {
             List<Node> tuples1 = xQuery(document, context, tupleGenerator1);
             List<Node> tuples2 = xQuery(document, context, tupleGenerator2);
 
-            List<String> nameList1 = IntStream.range(1, condGenerator1.getChildCount())
-                    .filter(i -> i % 2 == 1)
-                    .mapToObj(condGenerator1::getChild)
-                    .map(ParseTree::getText)
-                    .collect(Collectors.toList());
-            List<String> nameList2 = IntStream.range(1, condGenerator2.getChildCount())
-                    .filter(i -> i % 2 == 1)
-                    .mapToObj(condGenerator2::getChild)
-                    .map(ParseTree::getText)
-                    .collect(Collectors.toList());
+            if (condGenerator1.getChildCount() == 2 || condGenerator2.getChildCount() == 2) {
+                return cartesianProduct(document, tuples1, tuples2);
+            } else {
+                List<String> nameList1 = getJoinNames(condGenerator1);
+                List<String> nameList2 = getJoinNames(condGenerator2);
 
-            Map<String, Map<String, Node>> map = new HashMap<>();
-
-            for (Node tuple : tuples1) {
-                EngineUtilities.children(tuple).forEach(c -> {
-                    String name = c.getNodeName();
-                    if (nameList1.contains(name)) {
-                        String correspondingAttrib = nameList2.get(nameList1.indexOf(name));
-                        map.putIfAbsent(correspondingAttrib, new HashMap<>());
-                        map.get(correspondingAttrib).put(c.getNodeValue(), tuple);
-                    }
-                });
+                return join(document, tuples1, tuples2, nameList1, nameList2);
             }
-
-            List<Node> jointNodes = new ArrayList<>();
-
-            for (Node tuple : tuples2) {
-                List<Node> children = EngineUtilities.children(tuple);
-                List<Node> filteredChildren = children.stream()
-                        .filter(c -> nameList2.contains(c.getNodeName()))
-                        .collect(Collectors.toList());
-
-                if (!filteredChildren.isEmpty() && filteredChildren.stream()
-                        .allMatch(c -> map.get(c.getNodeName()).containsKey(c.getNodeValue()))) {
-                    Node nodeToMerge = filteredChildren.stream()
-                            .map(c -> map.get(c.getNodeName()).get(c.getNodeValue()))
-                            .findFirst()
-                            .get();
-
-                    List<Node> allChildren = new ArrayList<>(EngineUtilities.children(nodeToMerge));
-                    allChildren.addAll(children);
-                    jointNodes.add(EngineUtilities.makeElement(document, "tuple", allChildren));
-                }
-            }
-
-            return jointNodes;
         } else {
             throw new IllegalArgumentException("XQuery could not be parsed.");
         }

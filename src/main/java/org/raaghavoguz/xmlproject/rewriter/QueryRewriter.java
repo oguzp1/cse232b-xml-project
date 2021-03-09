@@ -193,19 +193,39 @@ public class QueryRewriter {
          *  + therefore, we start from "less central" fwr expressions with non-join where filters,
          *    i.e. we first pick filtered expressions that are involved in the minimum number of joins
          */
-        Map<Integer, Integer> joinCounts = joinMap.getJoinCounts();
-        Map<Integer, List<JoinKey>> associatedJoins = joinMap.getAssociatedJoins();
+        if (joinMap.isEmpty()) {
+            List<JoinKey> cartesianProductOrder = new ArrayList<>();
 
-        List<Integer> expressionOrder = IntStream.range(0, fwrExpressions.size()).boxed()
-                .sorted(Comparator.comparingInt(joinCounts::get))
-                .sorted(Comparator.comparing(i -> !fwrExpressions.get(i).contains("where")))
-                .collect(Collectors.toList());
+            for (int i = 1; i < fwrExpressions.size(); i++)
+                cartesianProductOrder.add(new JoinKey(i - 1, i));
 
-        // order is important
-        LinkedHashSet<JoinKey> keyOrder = new LinkedHashSet<>();
-        expressionOrder.forEach(i -> keyOrder.addAll(associatedJoins.get(i)));
+            return cartesianProductOrder;
+        } else {
+            Map<Integer, Integer> joinCounts = joinMap.getJoinCounts();
+            Map<Integer, List<JoinKey>> associatedJoins = joinMap.getAssociatedJoins();
 
-        return new ArrayList<>(keyOrder);
+            List<Integer> expressionOrder = IntStream.range(0, fwrExpressions.size()).boxed()
+                    .sorted(Comparator.comparingInt(i -> joinCounts.getOrDefault(i, 0)))
+                    .sorted(Comparator.comparing(i -> !fwrExpressions.get(i).contains("where")))
+                    .collect(Collectors.toList());
+
+            // order is important
+            LinkedHashSet<JoinKey> keyOrder = new LinkedHashSet<>();
+
+            // by definition, joinMap isn't empty here
+            int firstJoinIndex = joinMap.keySet().stream()
+                    .findFirst().get().getLeftIndex();
+
+            expressionOrder.stream()
+                    .filter(associatedJoins::containsKey)
+                    .forEach(i -> keyOrder.addAll(associatedJoins.get(i)));
+
+            expressionOrder.stream()
+                    .filter(i -> !associatedJoins.containsKey(i))
+                    .forEach(i -> keyOrder.add(new JoinKey(firstJoinIndex, i)));
+
+            return new ArrayList<>(keyOrder);
+        }
     }
 
     private static String getJoinClause(List<String> fwrExpressions, JoinMap joinMap) {

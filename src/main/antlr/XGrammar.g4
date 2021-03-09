@@ -64,7 +64,7 @@ whereClause : 'where' cond ;
 
 returnClause : 'return' xq ;
 
-joinCond : '[' NAME (',' NAME)* ']' ;
+joinCond : '[' ?(NAME (',' NAME)*) ']' ;
 
 NAME           : ('-' | [a-zA-Z0-9_])+ ;
 FILENAME       : NAME '.' NAME ;
