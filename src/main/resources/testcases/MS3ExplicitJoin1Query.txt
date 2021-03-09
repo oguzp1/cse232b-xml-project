@@ -1,11 +1,11 @@
 for $x in join(
   for $y in doc("j_caesar.xml")//SPEECH,
-      $z in $y/SPEAKER,
+      $z in $y/SPEAKER/text(),
       $a in $y/LINE
   return <tuple>{ <y>{ $y }</y>, <z>{ $z }</z>, <a>{ $a }</a> }</tuple>,
 
   for $w in doc("j_caesar.xml")//PGROUP,
-      $t in $w/PERSONA
+      $t in $w/PERSONA/text()
   return <tuple>{ <w>{ $w }</w>, <t>{ $t }</t> }</tuple>,
 
   [z], [t]

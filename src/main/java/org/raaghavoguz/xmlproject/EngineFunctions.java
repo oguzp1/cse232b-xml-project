@@ -131,7 +131,7 @@ public class EngineFunctions {
                 if (nameList1.contains(name)) {
                     String correspondingAttrib = nameList2.get(nameList1.indexOf(name));
                     map.putIfAbsent(correspondingAttrib, new HashMap<>());
-                    map.get(correspondingAttrib).put(c.getNodeValue(), tuple);
+                    map.get(correspondingAttrib).put(c.getFirstChild().getNodeValue(), tuple);
                 }
             });
         }
@@ -145,9 +145,9 @@ public class EngineFunctions {
                     .collect(Collectors.toList());
 
             if (!filteredChildren.isEmpty() && filteredChildren.stream()
-                    .allMatch(c -> map.get(c.getNodeName()).containsKey(c.getNodeValue()))) {
+                    .allMatch(c -> map.get(c.getNodeName()).containsKey(c.getFirstChild().getNodeValue()))) {
                 Node nodeToMerge = filteredChildren.stream()
-                        .map(c -> map.get(c.getNodeName()).get(c.getNodeValue()))
+                        .map(c -> map.get(c.getNodeName()).get(c.getFirstChild().getNodeValue()))
                         .findFirst()
                         .get();
 
