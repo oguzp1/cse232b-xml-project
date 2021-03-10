@@ -25,4 +25,9 @@ public class TestMS3Examples extends BaseTest {
     public void testExplicitJoin2() {
         testQuery("MS3ExplicitJoin2");
     }
+
+    @Test
+    public void testExplicitJoin3() {
+        testQuery("MS3ExplicitJoin3");
+    }
 }

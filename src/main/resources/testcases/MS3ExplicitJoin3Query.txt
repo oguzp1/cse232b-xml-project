@@ -1,0 +1,12 @@
+<results>{
+  for $x in join(
+    for $y in doc("j_caesar.xml")//TITLE
+    return <tuple>{ <y>{ $y }</y> }</tuple>,
+
+    for $w in doc("j_caesar.xml")//PERSONA
+    return <tuple>{ <w>{ $w }</w> }</tuple>,
+
+    [], []
+  )
+  return <result>{ $x/w/*, $x/y/* }</result>
+}</results>
