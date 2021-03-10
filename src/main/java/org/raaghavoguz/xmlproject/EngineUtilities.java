@@ -5,8 +5,6 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.raaghavoguz.xmlproject.grammar.XGrammarLexer;
 import org.raaghavoguz.xmlproject.grammar.XGrammarParser;
-import org.raaghavoguz.xmlproject.grammar.XSimpleGrammarLexer;
-import org.raaghavoguz.xmlproject.grammar.XSimpleGrammarParser;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
@@ -95,7 +93,7 @@ public class EngineUtilities {
 
         if (isNonTerminal(node)) {
             Optional.ofNullable(node.getAttributes())
-                    .flatMap(attribs -> Optional.ofNullable(attribs.getNamedItem(attName)))
+                    .flatMap(att -> Optional.ofNullable(att.getNamedItem(attName)))
                     .ifPresent(attList::add);
         }
 
@@ -155,6 +153,12 @@ public class EngineUtilities {
                 .map(n -> document.importNode(n, true))
                 .forEach(element::appendChild);
         return element;
+    }
+
+    public static Node makeTuple(Document document, Node tuple1, Node tuple2) {
+        List<Node> allChildren = children(tuple1);
+        allChildren.addAll(children(tuple2));
+        return makeElement(document, "tuple", allChildren);
     }
 
     public static Text makeText(Document document, String text) {

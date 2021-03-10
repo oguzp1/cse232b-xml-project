@@ -1391,11 +1391,11 @@ public class XGrammarParser extends Parser {
 						_localctx = new XQConcatContext(new XqContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_xq);
 						setState(158);
-						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
+						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
 						setState(159);
 						match(T__13);
 						setState(160);
-						xq(8);
+						xq(6);
 						}
 						break;
 					case 2:
@@ -1403,7 +1403,7 @@ public class XGrammarParser extends Parser {
 						_localctx = new XQDirContext(new XqContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_xq);
 						setState(161);
-						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
+						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
 						setState(162);
 						match(T__4);
 						setState(163);
@@ -1415,7 +1415,7 @@ public class XGrammarParser extends Parser {
 						_localctx = new XQDirRecursiveContext(new XqContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_xq);
 						setState(164);
-						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
+						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
 						setState(165);
 						match(T__5);
 						setState(166);
@@ -2197,11 +2197,11 @@ public class XGrammarParser extends Parser {
 	private boolean xq_sempred(XqContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 6:
-			return precpred(_ctx, 7);
-		case 7:
-			return precpred(_ctx, 6);
-		case 8:
 			return precpred(_ctx, 5);
+		case 7:
+			return precpred(_ctx, 7);
+		case 8:
+			return precpred(_ctx, 6);
 		}
 		return true;
 	}
@@ -2269,9 +2269,9 @@ public class XGrammarParser extends Parser {
 		"\7\20\2\2\u009b\u009c\5\24\13\2\u009c\u009d\7\6\2\2\u009d\u009f\3\2\2"+
 		"\2\u009et\3\2\2\2\u009ev\3\2\2\2\u009ew\3\2\2\2\u009ex\3\2\2\2\u009e|"+
 		"\3\2\2\2\u009e\u0087\3\2\2\2\u009e\u0090\3\2\2\2\u009e\u0093\3\2\2\2\u009f"+
-		"\u00ab\3\2\2\2\u00a0\u00a1\f\t\2\2\u00a1\u00a2\7\20\2\2\u00a2\u00aa\5"+
-		"\b\5\n\u00a3\u00a4\f\b\2\2\u00a4\u00a5\7\7\2\2\u00a5\u00aa\5\4\3\2\u00a6"+
-		"\u00a7\f\7\2\2\u00a7\u00a8\7\b\2\2\u00a8\u00aa\5\4\3\2\u00a9\u00a0\3\2"+
+		"\u00ab\3\2\2\2\u00a0\u00a1\f\7\2\2\u00a1\u00a2\7\20\2\2\u00a2\u00aa\5"+
+		"\b\5\b\u00a3\u00a4\f\t\2\2\u00a4\u00a5\7\7\2\2\u00a5\u00aa\5\4\3\2\u00a6"+
+		"\u00a7\f\b\2\2\u00a7\u00a8\7\b\2\2\u00a8\u00aa\5\4\3\2\u00a9\u00a0\3\2"+
 		"\2\2\u00a9\u00a3\3\2\2\2\u00a9\u00a6\3\2\2\2\u00aa\u00ad\3\2\2\2\u00ab"+
 		"\u00a9\3\2\2\2\u00ab\u00ac\3\2\2\2\u00ac\t\3\2\2\2\u00ad\u00ab\3\2\2\2"+
 		"\u00ae\u00af\b\6\1\2\u00af\u00b0\5\b\5\2\u00b0\u00b1\7\21\2\2\u00b1\u00b2"+

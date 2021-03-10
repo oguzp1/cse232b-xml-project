@@ -2,14 +2,15 @@
   for $x in join(
     for $y in doc("j_caesar.xml")//SPEECH,
         $z in $y/SPEAKER/text(),
-        $a in $y/LINE
-    return <tuple>{ <y>{ $y }</y>, <z>{ $z }</z>, <a>{ $a }</a> }</tuple>,
+        $a in $y/LINE,
+        $b in $a/text()
+    return <tuple>{ <y>{ $y }</y>, <z>{ $z }</z>, <a>{ $a }</a>, <b>{ $b }</b> }</tuple>,
 
     for $w in doc("j_caesar.xml")//PGROUP,
         $t in $w/PERSONA/text()
     return <tuple>{ <w>{ $w }</w>, <t>{ $t }</t> }</tuple>,
 
-    [z], [t]
+    [z, b], [t, t]
   )
   return <result>{ $x/w/*/GRPDESCR, $x/y/* }</result>
 }</results>

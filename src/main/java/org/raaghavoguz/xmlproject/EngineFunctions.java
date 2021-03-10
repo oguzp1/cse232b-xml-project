@@ -2,6 +2,7 @@ package org.raaghavoguz.xmlproject;
 
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.raaghavoguz.xmlproject.grammar.XGrammarParser;
+import org.raaghavoguz.xmlproject.rewriter.JoinKey;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
@@ -51,7 +52,6 @@ public class EngineFunctions {
     private static List<Node> xQueryDir(Document document, Context context, ParseTree xq, ParseTree rp) {
         return EngineUtilities.unique(
                 xQuery(document, context, xq).stream()
-                        .filter(EngineUtilities::isNonTerminal)
                         .flatMap(n -> relativePath(n, rp).stream())
                         .collect(Collectors.toList())
         );
@@ -106,16 +106,53 @@ public class EngineFunctions {
                 .collect(Collectors.toList());
     }
 
+    private static Set<JoinKey> getBucketCartesianProduct(List<Node> tuples1, List<Node> tuples2,
+                                                          List<Integer> indices1, List<Integer> indices2,
+                                                          String name1, String name2) {
+        Set<JoinKey> joinKeys = new LinkedHashSet<>();
+        Map<String, List<Integer>> map1 = new LinkedHashMap<>();
+        Map<String, List<Integer>> map2 = new HashMap<>();
+
+        // map construction
+        for (int i : indices1) {
+            for (Node c : EngineUtilities.children(tuples1.get(i))) {
+                if (c.getNodeName().equals(name1)) {
+                    String value = c.getFirstChild().getNodeValue();
+                    map1.putIfAbsent(value, new ArrayList<>());
+                    map1.get(value).add(i);
+                }
+            }
+        }
+
+        for (int i : indices2) {
+            for (Node c : EngineUtilities.children(tuples2.get(i))) {
+                if (c.getNodeName().equals(name2)) {
+                    String value = c.getFirstChild().getNodeValue();
+                    map2.putIfAbsent(value, new ArrayList<>());
+                    map2.get(value).add(i);
+                }
+            }
+        }
+
+        // cartesian
+        map1.forEach((key, leftIndices) -> {
+            List<Integer> rightIndices = map2.getOrDefault(key, Collections.emptyList());
+
+            joinKeys.addAll(leftIndices.stream()
+                    .flatMap(l -> rightIndices.stream()
+                            .map(r -> new JoinKey(l, r)))
+                    .collect(Collectors.toList()));
+        });
+
+        return joinKeys;
+    }
+
     private static List<Node> cartesianProduct(Document document, List<Node> tuples1, List<Node> tuples2) {
         List<Node> jointNodes = new ArrayList<>();
 
         for (Node tuple1 : tuples1) {
-            for (Node tuple2 : tuples2) {
-                List<Node> allChildren = EngineUtilities.children(tuple1);
-                allChildren.addAll(EngineUtilities.children(tuple2));
-
-                jointNodes.add(EngineUtilities.makeElement(document, "tuple", allChildren));
-            }
+            for (Node tuple2 : tuples2)
+                jointNodes.add(EngineUtilities.makeTuple(document, tuple1, tuple2));
         }
 
         return jointNodes;
@@ -123,41 +160,33 @@ public class EngineFunctions {
 
     private static List<Node> join(Document document, List<Node> tuples1, List<Node> tuples2,
                                    List<String> nameList1, List<String> nameList2) {
-        Map<String, Map<String, Node>> map = new HashMap<>();
+        List<Integer> indices1 = IntStream.range(0, tuples1.size()).boxed().collect(Collectors.toList());
+        List<Integer> indices2 = IntStream.range(0, tuples2.size()).boxed().collect(Collectors.toList());
 
-        for (Node tuple : tuples1) {
-            EngineUtilities.children(tuple).forEach(c -> {
-                String name = c.getNodeName();
-                if (nameList1.contains(name)) {
-                    String correspondingAttrib = nameList2.get(nameList1.indexOf(name));
-                    map.putIfAbsent(correspondingAttrib, new HashMap<>());
-                    map.get(correspondingAttrib).put(c.getFirstChild().getNodeValue(), tuple);
-                }
-            });
-        }
+        Set<JoinKey> remainingMatches = getBucketCartesianProduct(tuples1, tuples2, indices1, indices2,
+                nameList1.get(0), nameList2.get(0));
 
-        List<Node> jointNodes = new ArrayList<>();
-
-        for (Node tuple : tuples2) {
-            List<Node> children = EngineUtilities.children(tuple);
-            List<Node> filteredChildren = children.stream()
-                    .filter(c -> nameList2.contains(c.getNodeName()))
+        for (int i = 1; !remainingMatches.isEmpty() && i < nameList1.size(); i++) {
+            indices1 = remainingMatches.stream()
+                    .map(JoinKey::getLeftIndex)
+                    .distinct()
+                    .collect(Collectors.toList());
+            indices2 = remainingMatches.stream()
+                    .map(JoinKey::getRightIndex)
+                    .distinct()
                     .collect(Collectors.toList());
 
-            if (!filteredChildren.isEmpty() && filteredChildren.stream()
-                    .allMatch(c -> map.get(c.getNodeName()).containsKey(c.getFirstChild().getNodeValue()))) {
-                Node nodeToMerge = filteredChildren.stream()
-                        .map(c -> map.get(c.getNodeName()).get(c.getFirstChild().getNodeValue()))
-                        .findFirst()
-                        .get();
+            Set<JoinKey> currentMatches = getBucketCartesianProduct(tuples1, tuples2, indices1, indices2,
+                    nameList1.get(i), nameList2.get(i));
 
-                List<Node> allChildren = new ArrayList<>(EngineUtilities.children(nodeToMerge));
-                allChildren.addAll(children);
-                jointNodes.add(EngineUtilities.makeElement(document, "tuple", allChildren));
-            }
+            remainingMatches.retainAll(currentMatches);
         }
 
-        return jointNodes;
+        return remainingMatches.stream()
+                .map(jk -> EngineUtilities.makeTuple(document,
+                        tuples1.get(jk.getLeftIndex()),
+                        tuples2.get(jk.getRightIndex())))
+                .collect(Collectors.toList());
     }
 
     public static List<Node> absolutePath(ParseTree tree) {
@@ -189,9 +218,7 @@ public class EngineFunctions {
                     .filter(n -> tagName.equals(n.getNodeName()))
                     .collect(Collectors.toList());
         } else if (tree instanceof XGrammarParser.RPStarContext) {
-            return EngineUtilities.children(node).stream()
-                    .filter(EngineUtilities::isNonTerminal)
-                    .collect(Collectors.toList());
+            return EngineUtilities.children(node);
         } else if (tree instanceof XGrammarParser.RPCurrentDirContext) {
             return Collections.singletonList(node);
         } else if (tree instanceof XGrammarParser.RPParentDirContext) {

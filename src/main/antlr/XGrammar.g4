@@ -35,9 +35,9 @@ xq : VAR                                                      #XQVar
    | STRINGCONSTANT                                           #XQString
    | ap                                                       #XQAbsolute
    | '(' xq ')'                                               #XQParantheses
-   | xq ',' xq                                                #XQConcat
    | xq '/' rp                                                #XQDir
    | xq '//' rp                                               #XQDirRecursive
+   | xq ',' xq                                                #XQConcat
    | '<' NAME '>' '{' xq '}' '<' '/' NAME '>'                 #XQConstructor
    | forClause letClause? whereClause? returnClause           #XQFLWR
    | letClause xq                                             #XQLet

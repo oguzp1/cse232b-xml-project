@@ -2,24 +2,24 @@ package org.raaghavoguz.xmlproject.rewriter;
 
 import java.util.Objects;
 
-class JoinKey {
+public class JoinKey {
     private final int leftIndex;
     private final int rightIndex;
 
-    JoinKey(int leftIndex, int rightIndex) {
+    public JoinKey(int leftIndex, int rightIndex) {
         this.leftIndex = leftIndex;
         this.rightIndex = rightIndex;
     }
 
-    int getLeftIndex() {
+    public int getLeftIndex() {
         return leftIndex;
     }
 
-    int getRightIndex() {
+    public int getRightIndex() {
         return rightIndex;
     }
 
-    JoinKey invert() {
+    public JoinKey invert() {
         return new JoinKey(this.rightIndex, this.leftIndex);
     }
 
