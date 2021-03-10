@@ -1,0 +1,7 @@
+for $y in doc("j_caesar.xml")//SPEECH,
+    $z in $y/SPEAKER/text(),
+    $w in doc("j_caesar.xml")//PGROUP,
+    $a in $y/LINE,
+    $t in $w/PERSONA/text()
+where $z eq $t
+return <result>{ $w/GRPDESCR, $y }</result>

@@ -1,0 +1,4 @@
+for $y in doc("j_caesar.xml")//TITLE,
+    $w in doc("j_caesar.xml")//PERSONA/text()
+where $w eq "FLAVIUS"
+return <result>{ $w, $y }</result>

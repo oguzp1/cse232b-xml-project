@@ -1,0 +1,8 @@
+for $w in doc("j_caesar.xml")//PGROUP,
+    $t in $w/PERSONA/text(),
+    $u in $w/GRPDESCR/text(),
+    $k in doc("j_caesar.xml")//ACT/TITLE,
+    $y in doc("j_caesar.xml")//SPEECH,
+    $z in $y/SPEAKER/text()
+where $u = "conspirators against Julius Caesar." and $t = $z
+return <result>{ $w/GRPDESCR, $y/SPEAKER, $k }</result>

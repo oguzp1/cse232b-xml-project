@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><result>FLAVIUS<TITLE>The Tragedy of Julius Caesar</TITLE></result>
+<?xml version="1.0" encoding="UTF-8"?><result>FLAVIUS<TITLE>Dramatis Personae</TITLE></result>
+<?xml version="1.0" encoding="UTF-8"?><result>FLAVIUS<TITLE>ACT I</TITLE></result>
+<?xml version="1.0" encoding="UTF-8"?><result>FLAVIUS<TITLE>SCENE I.  Rome. A street.</TITLE></result>
+<?xml version="1.0" encoding="UTF-8"?><result>FLAVIUS<TITLE>SCENE II.  A public place.</TITLE></result>
+<?xml version="1.0" encoding="UTF-8"?><result>FLAVIUS<TITLE>SCENE III.  The same. A street.</TITLE></result>
+<?xml version="1.0" encoding="UTF-8"?><result>FLAVIUS<TITLE>ACT II</TITLE></result>
+<?xml version="1.0" encoding="UTF-8"?><result>FLAVIUS<TITLE>SCENE I.  Rome. BRUTUS's orchard.</TITLE></result>
+<?xml version="1.0" encoding="UTF-8"?><result>FLAVIUS<TITLE>SCENE II.  CAESAR's house.</TITLE></result>
+<?xml version="1.0" encoding="UTF-8"?><result>FLAVIUS<TITLE>SCENE III.  A street near the Capitol.</TITLE></result>
+<?xml version="1.0" encoding="UTF-8"?><result>FLAVIUS<TITLE>SCENE IV.  Another part of the same street, before the house of BRUTUS.</TITLE></result>
+<?xml version="1.0" encoding="UTF-8"?><result>FLAVIUS<TITLE>ACT III</TITLE></result>
+<?xml version="1.0" encoding="UTF-8"?><result>FLAVIUS<TITLE>SCENE I.  Rome. Before the Capitol; the Senate sitting above.</TITLE></result>
+<?xml version="1.0" encoding="UTF-8"?><result>FLAVIUS<TITLE>SCENE II.  The Forum.</TITLE></result>
+<?xml version="1.0" encoding="UTF-8"?><result>FLAVIUS<TITLE>SCENE III.  A street.</TITLE></result>
+<?xml version="1.0" encoding="UTF-8"?><result>FLAVIUS<TITLE>ACT IV</TITLE></result>
+<?xml version="1.0" encoding="UTF-8"?><result>FLAVIUS<TITLE>SCENE I.  A house in Rome.</TITLE></result>
+<?xml version="1.0" encoding="UTF-8"?><result>FLAVIUS<TITLE>SCENE II.  Camp near Sardis. Before BRUTUS's tent.</TITLE></result>
+<?xml version="1.0" encoding="UTF-8"?><result>FLAVIUS<TITLE>SCENE III.  Brutus's tent.</TITLE></result>
+<?xml version="1.0" encoding="UTF-8"?><result>FLAVIUS<TITLE>ACT V</TITLE></result>
+<?xml version="1.0" encoding="UTF-8"?><result>FLAVIUS<TITLE>SCENE I.  The plains of Philippi.</TITLE></result>
+<?xml version="1.0" encoding="UTF-8"?><result>FLAVIUS<TITLE>SCENE II.  The same. The field of battle.</TITLE></result>
+<?xml version="1.0" encoding="UTF-8"?><result>FLAVIUS<TITLE>SCENE III.  Another part of the field.</TITLE></result>
+<?xml version="1.0" encoding="UTF-8"?><result>FLAVIUS<TITLE>SCENE IV.  Another part of the field.</TITLE></result>
+<?xml version="1.0" encoding="UTF-8"?><result>FLAVIUS<TITLE>SCENE V.  Another part of the field.</TITLE></result>

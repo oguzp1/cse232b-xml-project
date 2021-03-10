@@ -1,0 +1,1 @@
+for $tuple in join( for $y in doc("j_caesar.xml")//TITLE return <tuple>{ <y>{$y}</y> }</tuple>, for $w in doc("j_caesar.xml")//PERSONA/text() where $w eq "FLAVIUS" return <tuple>{ <w>{$w}</w> }</tuple>, [], [] ) return <result>{$tuple/w/*,$tuple/y/*}</result>
