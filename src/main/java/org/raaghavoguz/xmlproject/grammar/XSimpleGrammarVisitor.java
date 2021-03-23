@@ -41,6 +41,12 @@ public interface XSimpleGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPath(XSimpleGrammarParser.PathContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link XSimpleGrammarParser#pathname}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPathname(XSimpleGrammarParser.PathnameContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link XSimpleGrammarParser#sep}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

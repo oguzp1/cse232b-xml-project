@@ -10,9 +10,11 @@ whereClause : 'where' cond ;
 
 returnClause : 'return' ret ;
 
-path : ('doc' '(' '"' FILENAME '"' ')' | VAR) (sep NAME)* sep NAME
-     | ('doc' '(' '"' FILENAME '"' ')' | VAR) (sep NAME)* sep 'text' '(' ')'
+path : ('doc' '(' '"' FILENAME '"' ')' | VAR) (sep pathname)* sep pathname
+     | ('doc' '(' '"' FILENAME '"' ')' | VAR) (sep pathname)* sep 'text' '(' ')'
      ;
+
+pathname : NAME | '*' ;
 
 sep : '/' | '//' ;
 

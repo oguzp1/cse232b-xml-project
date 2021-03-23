@@ -210,7 +210,7 @@ public class QueryRewriter {
                     .collect(Collectors.toList());
 
             // order is important
-            LinkedHashSet<JoinKey> keyOrder = new LinkedHashSet<>();
+            LinkedHashSet<UnorderedJoinKey> keyOrder = new LinkedHashSet<>();
 
             // by definition, joinMap isn't empty here
             int firstJoinIndex = joinMap.keySet().stream()
@@ -218,13 +218,17 @@ public class QueryRewriter {
 
             expressionOrder.stream()
                     .filter(associatedJoins::containsKey)
-                    .forEach(i -> keyOrder.addAll(associatedJoins.get(i)));
+                    .flatMap(i -> associatedJoins.get(i).stream()
+                            .map(JoinKey::unordered))
+                    .forEach(keyOrder::add);
 
             expressionOrder.stream()
                     .filter(i -> !associatedJoins.containsKey(i))
-                    .forEach(i -> keyOrder.add(new JoinKey(firstJoinIndex, i)));
+                    .forEach(i -> keyOrder.add(new UnorderedJoinKey(firstJoinIndex, i)));
 
-            return new ArrayList<>(keyOrder);
+            return keyOrder.stream()
+                    .map(UnorderedJoinKey::ordered)
+                    .collect(Collectors.toList());
         }
     }
 

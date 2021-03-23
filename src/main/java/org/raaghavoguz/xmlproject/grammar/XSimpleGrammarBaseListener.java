@@ -76,6 +76,18 @@ public class XSimpleGrammarBaseListener implements XSimpleGrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterPathname(XSimpleGrammarParser.PathnameContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPathname(XSimpleGrammarParser.PathnameContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterSep(XSimpleGrammarParser.SepContext ctx) { }
 	/**
 	 * {@inheritDoc}

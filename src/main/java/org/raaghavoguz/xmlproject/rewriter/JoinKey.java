@@ -23,6 +23,10 @@ public class JoinKey {
         return new JoinKey(this.rightIndex, this.leftIndex);
     }
 
+    public UnorderedJoinKey unordered() {
+        return new UnorderedJoinKey(this.leftIndex, this.rightIndex);
+    }
+
     @Override
     public boolean equals(Object obj) {
         return obj instanceof JoinKey &&

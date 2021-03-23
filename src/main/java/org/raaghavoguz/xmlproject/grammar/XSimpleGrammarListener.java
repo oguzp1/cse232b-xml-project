@@ -58,6 +58,16 @@ public interface XSimpleGrammarListener extends ParseTreeListener {
 	 */
 	void exitPath(XSimpleGrammarParser.PathContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link XSimpleGrammarParser#pathname}.
+	 * @param ctx the parse tree
+	 */
+	void enterPathname(XSimpleGrammarParser.PathnameContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link XSimpleGrammarParser#pathname}.
+	 * @param ctx the parse tree
+	 */
+	void exitPathname(XSimpleGrammarParser.PathnameContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link XSimpleGrammarParser#sep}.
 	 * @param ctx the parse tree
 	 */
